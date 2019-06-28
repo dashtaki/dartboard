@@ -6,11 +6,13 @@ import {AppComponent} from './app.component';
 import {GameComponent} from './components/game/game.component';
 import {GuestService} from './services/guest.service';
 import {HttpClientModule} from '@angular/common/http';
+import {AllUsersComponent} from './components/all-users/all-users.component';
 import {NgxPaginationModule} from 'ngx-pagination';
 
 const DECLARATIONS = [
   AppComponent,
-  GameComponent
+  GameComponent,
+  AllUsersComponent
 ];
 
 @NgModule({

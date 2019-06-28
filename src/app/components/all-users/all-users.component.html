@@ -1,0 +1,15 @@
+<ul>
+  <li *ngFor="let user of users | paginate: { id: 'foo',
+                                                      itemsPerPage: itemsPerPage,
+                                                      currentPage: currentPage,
+                                                      totalItems: total }">
+    <div>Name: {{user.name}}</div>
+    <div>Email: {{user.email}}</div>
+    <div>Created at: {{user.created_at}}</div>
+    <div>Updated at: {{user.updated_at}}</div>
+    <div>Score: {{user.score}}</div>
+
+  </li>
+</ul>
+
+<pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
