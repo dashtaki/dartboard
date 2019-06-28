@@ -18,16 +18,11 @@ export class UserService {
         username: username,
         password: password,
         grant_type: 'password'
-      })
-      .pipe(map(user => {
-        if (user && user.token) {
-          localStorage.setItem('userInfo', JSON.stringify(user));
-        }
-        return user;
-      }));
+      });
   }
 
-  public logout() {
+  public logout(): void {
     localStorage.removeItem('userInfo');
   }
+
 }

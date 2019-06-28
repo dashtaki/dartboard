@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {UserService} from '../../services/user/user.service';
-import {first, tap} from 'rxjs/operators';
+import {first} from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -42,20 +42,26 @@ export class LoginComponent implements OnInit {
     return this.loginForm.controls;
   }
 
-  login() {
+  /**
+   * login user
+   */
+  public login() {
     this.isSubmitted = true;
     if (this.loginForm.invalid) {
       return;
     }
 
-    this.userService.login(1, '', this.formControls.username.value, this.formControls.password.value)
-      .pipe(
-        first(),
-        tap(() => console.log(this.formControls.username.value, this.formControls.password.value)))
+    this.userService.login(this.formControls.username.value, this.formControls.password.value)
+      .pipe(first())
       .subscribe(
-        data => {
-          if (data)
-            this.router.navigate([this.returnUrl]);
+        userData => {
+          if (userData) {
+            if (userData.access_token) {
+              localStorage.setItem('userInfo', JSON.stringify(userData));
+              this.router.navigate([this.returnUrl]);
+            }
+          }
+
         });
     // this.authService.login(this.loginForm.value);
     // this.router.navigateByUrl('/admin');
