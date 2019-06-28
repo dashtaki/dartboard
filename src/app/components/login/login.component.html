@@ -4,8 +4,7 @@
     <form [formGroup]="loginForm" class="login-container" (ngSubmit)="login()">
 
       <p [ngClass]="{ 'has-error': isSubmitted && formControls.username.errors }">
-        <input type="text" placeholder="User Name" formControlName="username">
-
+        <input type="text" placeholder="UserName" formControlName="username">
       </p>
       <div *ngIf="isSubmitted && formControls.username.errors" class="help-block">
         <div *ngIf="formControls.username.errors.required">User name is required</div>

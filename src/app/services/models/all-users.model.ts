@@ -2,7 +2,7 @@ import {User} from './user.model';
 
 export interface AllUsers {
   current_page: 1;
-  data: User[],
+  data: User[];
   first_page_url: string;
   from: number;
   last_page: number;
