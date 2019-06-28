@@ -17,11 +17,8 @@ export class ApiInterceptor implements HttpInterceptor {
 
 
     return next.handle(authReq).pipe(catchError(err => {
-      console.log(authReq.url, '>>>>>>>>>');
       if (err.status === 401) {
-        // auto logout if 401 response returned from api
-        // this.authenticationService.logout();
-        location.reload(true);
+        console.log('should navigate to login page ....')
       }
 
       const error = err.error.message || err.statusText;
