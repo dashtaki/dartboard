@@ -4,5 +4,11 @@
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true
+  },
+  "/oauth": {
+    "target": "https://pure-thicket-74090.herokuapp.com",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
   }
 }
