@@ -4,7 +4,7 @@ import {NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {GameComponent} from './components/game/game.component';
-import {GuestService} from './services/guest.service';
+import {GuestService} from './services/guest/guest.service';
 import {HttpClientModule} from '@angular/common/http';
 import {AllUsersComponent} from './components/all-users/all-users.component';
 import {NgxPaginationModule} from 'ngx-pagination';

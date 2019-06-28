@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Game} from '../../services/models/game';
-import {GuestService} from '../../services/guest.service';
+import {GuestService} from '../../services/guest/guest.service';
 
 @Component({
   selector: 'app-leader-board',
