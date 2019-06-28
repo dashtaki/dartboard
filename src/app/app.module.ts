@@ -3,20 +3,25 @@ import {NgModule} from '@angular/core';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {LeaderBoardComponent} from './components/leader-board/leader-board.component';
+import {GameComponent} from './components/game/game.component';
+import {GuestService} from './services/guest.service';
+import {HttpClientModule} from '@angular/common/http';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 const DECLARATIONS = [
   AppComponent,
-  LeaderBoardComponent
+  GameComponent
 ];
 
 @NgModule({
   declarations: [DECLARATIONS],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    NgxPaginationModule
   ],
-  providers: [],
+  providers: [GuestService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
