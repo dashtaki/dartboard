@@ -24,4 +24,7 @@ export class GuestService {
     return this.http.get<AllUsers>(`/api/user?page=${pageNumber}`);
   }
 
+  public register(payload): Observable<any> {
+    return this.http.post<any>('/api/user', payload);
+  }
 }

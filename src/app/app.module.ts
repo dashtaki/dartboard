@@ -8,11 +8,16 @@ import {GuestService} from './services/guest/guest.service';
 import {HttpClientModule} from '@angular/common/http';
 import {AllUsersComponent} from './components/all-users/all-users.component';
 import {NgxPaginationModule} from 'ngx-pagination';
+import {UserService} from './services/user/user.service';
+import {UtilityService} from './services/utility.service';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {RegisterComponent} from './components/register/register.component';
 
 const DECLARATIONS = [
   AppComponent,
   GameComponent,
-  AllUsersComponent
+  AllUsersComponent,
+  RegisterComponent
 ];
 
 @NgModule({
@@ -21,9 +26,11 @@ const DECLARATIONS = [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
-  providers: [GuestService],
+  providers: [GuestService, UserService, UtilityService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
