@@ -8,6 +8,7 @@ import {GuestService} from './services/guest/guest.service';
 import {HttpClientModule} from '@angular/common/http';
 import {AllUsersComponent} from './components/all-users/all-users.component';
 import {NgxPaginationModule} from 'ngx-pagination';
+import {LoginComponent} from './components/login/login.component';
 import {UserService} from './services/user/user.service';
 import {UtilityService} from './services/utility.service';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -17,6 +18,7 @@ const DECLARATIONS = [
   AppComponent,
   GameComponent,
   AllUsersComponent,
+  LoginComponent,
   RegisterComponent
 ];
 
