@@ -12,4 +12,9 @@ export class UtilityService {
     else if (mode === 'hide')
       spinner.classList.remove('show');
   }
+
+  public isUserLoggedIn() {
+    let userInfo = localStorage.getItem('userInfo');
+    return !!userInfo;
+  }
 }
