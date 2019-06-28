@@ -51,15 +51,13 @@
   }
 }
 
-.register input[type="email"],
-.register input[type="password"] {
+.register input {
   background: #fff;
   border-color: #bbb;
   color: #555;
 }
 
-.register input[type="email"]:focus,
-.register input[type="password"]:focus {
+.register input:focus {
   border-color: #888;
 }
 
