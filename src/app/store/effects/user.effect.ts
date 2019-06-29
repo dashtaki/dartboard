@@ -5,13 +5,15 @@ import {Action} from '@ngrx/store';
 import * as userActions from '../actions/user.action';
 import {catchError, map, switchMap, tap} from 'rxjs/operators';
 import {UserService} from '../../services/user/user.service';
+import {Router} from '@angular/router';
 
 
 @Injectable()
 export class UserEffects {
   constructor(
     private actions$: Actions,
-    private userService: UserService) {
+    private userService: UserService,
+    private router: Router) {
   }
 
   @Effect()
@@ -78,6 +80,28 @@ export class UserEffects {
         map((success) => new userActions.SetProfileInfoSuccessAction(success)),
         catchError((error) => of(new userActions.SetProfileInfoFailAction(error)))
       );
+    })
+  );
+
+  @Effect()
+  leaveGame$: Observable<Action> = this.actions$.pipe(
+    ofType(userActions.LEAVE_GAME),
+    map((action: userActions.LeaveGameAction) => action.payload),
+    switchMap((gameId) => {
+      return this.userService.leaveGame(gameId)
+        .pipe(
+          map((success) => new userActions.LeaveGameSuccessAction(success)),
+          catchError((error) => of(new userActions.LeaveGameFailAction(error)))
+        );
+    })
+  );
+
+  @Effect({dispatch: false})
+  leaveGameSuccess$: Observable<Action> = this.actions$.pipe(
+    ofType(userActions.LEAVE_GAME_SUCCESS),
+    tap(() => {
+      console.log('you leaved the game successfully.');
+      this.router.navigate(['./games']);
     })
   );
 

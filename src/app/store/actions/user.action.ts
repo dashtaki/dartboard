@@ -23,6 +23,10 @@ export const SET_PROFILE_INFO = '[User] Set Profile Info';
 export const SET_PROFILE_INFO_SUCCESS = '[User] Set Profile Info Success';
 export const SET_PROFILE_INFO_FAIL = '[User] Set Profile Info Fail';
 
+export const LEAVE_GAME = '[User] Leave Game';
+export const LEAVE_GAME_SUCCESS = '[User] Leave Game Success';
+export const LEAVE_GAME_FAIL = '[User] Leave Game Fail';
+
 export class LoginAction implements Action {
   readonly type = LOGIN;
 
@@ -132,6 +136,27 @@ export class SetProfileInfoFailAction implements Action {
   }
 }
 
+export class LeaveGameAction implements Action {
+  readonly type = LEAVE_GAME;
+
+  constructor(public payload: any) {
+  }
+}
+
+export class LeaveGameSuccessAction implements Action {
+  readonly type = LEAVE_GAME_SUCCESS;
+
+  constructor(public payload: any) {
+  }
+}
+
+export class LeaveGameFailAction implements Action {
+  readonly type = LEAVE_GAME_FAIL;
+
+  constructor(public payload: any) {
+  }
+}
+
 
 export type Actions =
   LoginAction
@@ -149,5 +174,8 @@ export type Actions =
   | GetProfileInfoFailAction
   | SetProfileInfoAction
   | SetProfileInfoSuccessAction
-  | SetProfileInfoFailAction;
+  | SetProfileInfoFailAction
+  | LeaveGameAction
+  | LeaveGameSuccessAction
+  | LeaveGameFailAction;
 

@@ -49,4 +49,8 @@ export class UserService {
   public joinGame(gameId: number): Observable<any> {
     return this.http.post<any>(`/api/game/${gameId}/join`, {});
   }
+
+  public leaveGame(gameId: number) {
+    return this.http.delete(`/api/game/${gameId}/left`);
+  }
 }

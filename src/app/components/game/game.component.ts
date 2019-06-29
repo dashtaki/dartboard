@@ -71,7 +71,7 @@ export class GameComponent implements OnInit {
   }
 
   /**
-   * check user already joined to game ot not
+   * check user already joined to game or not
    */
   private checkAlreadyJoined() {
     this.store.select(fromRoot.getUserProfileInfo).pipe(first()).subscribe(data => {
@@ -84,5 +84,12 @@ export class GameComponent implements OnInit {
         })
       }
     });
+  }
+
+  /**
+   * leave the game
+   */
+  public leaveGame() {
+    this.store.dispatch(new userActions.LeaveGameAction(this.gameId))
   }
 }
