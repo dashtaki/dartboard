@@ -32,6 +32,7 @@ export const errorUser = createSelector(getUserState, fromUser.error);
 export const getGuestState = (state: State) => state.guest;
 export const getAllGames = createSelector(getGuestState, fromGuest.getAllGames);
 export const getAllUsers = createSelector(getGuestState, fromGuest.getAllUsers);
+export const getRegisterData = createSelector(getGuestState, fromGuest.getRegisterData);
 export const getGame = createSelector(getGuestState, fromGuest.getGame);
 export const isFetchingGuest = createSelector(getGuestState, fromGuest.isFetching);
 export const errorGuest = createSelector(getGuestState, fromGuest.error);

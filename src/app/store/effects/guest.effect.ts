@@ -50,6 +50,18 @@ export class GuestEffect {
     })
   );
 
+  @Effect()
+  register$: Observable<Action> = this.actions$.pipe(
+    ofType(guestActions.REGISTER),
+    map((action: guestActions.RegisterAction) => action.payload),
+    switchMap(data => {
+      return this.guestService.register(data).pipe(
+        map((success) => new guestActions.RegisterSuccessAction(success)),
+        catchError((error) => of(new guestActions.RegisterFailAction(error)))
+      );
+    })
+  );
+
 }
 
 
