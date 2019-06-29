@@ -7,7 +7,8 @@ import {map} from "rxjs/operators";
 })
 export class UserService {
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+              private store: Store<fromRoot.State>) {
   }
 
   public login(clientId: number, clientSecret: string, username: string, password: string) {
@@ -22,6 +23,7 @@ export class UserService {
   }
 
   public logout(): void {
+    this.store.dispatch(new userActions.AuthenticateAction(false));
     localStorage.removeItem('userInfo');
   }
 
