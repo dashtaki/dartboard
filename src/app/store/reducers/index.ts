@@ -22,12 +22,13 @@ export const reducers: ActionReducerMap<State> = {
 export const getUserState = (state: State) => state.user;
 export const getLoginData = createSelector(getUserState, fromUser.getLoginData);
 export const getUserEmail = createSelector(getUserState, fromUser.getUserEmail);
+export const getUserProfileInfo = createSelector(getUserState, fromUser.getUserProfileInfo);
 export const getUserName = createSelector(getUserState, fromUser.getUserName);
 export const isFetchingUser = createSelector(getUserState, fromUser.isFetching);
 export const isLoggedIn = createSelector(getUserState, fromUser.isLoggedIn);
 export const errorUser = createSelector(getUserState, fromUser.error);
 
-/*  User state selectors  */
+/*  Guest state selectors  */
 export const getGuestState = (state: State) => state.guest;
 export const getAllGames = createSelector(getGuestState, fromGuest.getAllGames);
 export const getGame = createSelector(getGuestState, fromGuest.getGame);

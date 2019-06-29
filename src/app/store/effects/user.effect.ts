@@ -3,7 +3,7 @@ import {Actions, Effect, ofType} from '@ngrx/effects';
 import {Observable, of} from 'rxjs';
 import {Action} from '@ngrx/store';
 import * as userActions from '../actions/user.action';
-import {catchError, map, switchMap} from 'rxjs/operators';
+import {catchError, map, switchMap, tap} from 'rxjs/operators';
 import {UserService} from '../../services/user/user.service';
 
 
@@ -37,6 +37,38 @@ export class UserEffects {
       );
     })
   );
+
+  @Effect()
+  joinGame$: Observable<Action> = this.actions$.pipe(
+    ofType(userActions.JOIN_GAME),
+    map((action: userActions.JoinGameAction) => action.payload),
+    switchMap(gameId => {
+      return this.userService.joinGame(gameId).pipe(
+        map((success) => new userActions.JoinGameSuccessAction(success)),
+        catchError((error) => of(new userActions.JoinGameFailAction(error)))
+      );
+    })
+  );
+
+  @Effect({dispatch: false})
+  joinGameSuccess$: Observable<Action> = this.actions$.pipe(
+    ofType(userActions.JOIN_GAME_SUCCESS),
+    tap(() => {
+      console.log('you joined the game successfully.')
+    })
+  );
+
+  @Effect()
+  profileInfo$: Observable<Action> = this.actions$.pipe(
+    ofType(userActions.PROFILE_INFO),
+    switchMap(() => {
+      return this.userService.getUserProfile().pipe(
+        map((success) => new userActions.ProfileInfoSuccessAction(success)),
+        catchError((error) => of(new userActions.ProfileInfoFailAction(error)))
+      );
+    })
+  );
+
 
 }
 

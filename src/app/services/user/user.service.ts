@@ -45,4 +45,8 @@ export class UserService {
   public createGame(targetScore: CreateGame): Observable<any> {
     return this.http.post<any>('/api/game', targetScore);
   }
+
+  public joinGame(gameId: number): Observable<any> {
+    return this.http.post<any>(`/api/game/${gameId}/join`, {});
+  }
 }

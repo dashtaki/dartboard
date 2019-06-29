@@ -5,8 +5,10 @@ import * as fromRoot from '../../store/reducers/index';
 import * as guestActions from '../../store/actions/guest.action';
 import {ActivatedRoute} from '@angular/router';
 import {UtilityService} from '../../services/utility.service';
-import {Winner} from "../../services/models/winner.model";
-import {User} from "../../services/models/user.model";
+import {Winner} from '../../services/models/winner.model';
+import {User} from '../../services/models/user.model';
+import * as userActions from '../../store/actions/user.action';
+import {first} from 'rxjs/operators';
 
 @Component({
   selector: 'app-leader-board',
@@ -15,6 +17,9 @@ import {User} from "../../services/models/user.model";
 })
 export class GameComponent implements OnInit {
   public gameInfo: Game;
+  public isUserLoggedIn: boolean;
+  public gameId: number;
+  public alreadyJoined: boolean;
 
   constructor(private store: Store<fromRoot.State>,
               private route: ActivatedRoute,
@@ -34,13 +39,22 @@ export class GameComponent implements OnInit {
       winner: Winner;
       winner_id: number;
     };
+    this.alreadyJoined = true;
+    this.isUserLoggedIn = false;
+    this.store.select(fromRoot.isLoggedIn).subscribe(data => {
+      if (data) this.isUserLoggedIn = data
+    });
+
+
     this.utilityService.toggleLoadingSpinner("show");
     this.route.params.subscribe(params => {
       if (params['id']) {
-        this.store.dispatch(new guestActions.GameAction(parseInt(params['id'])));
+        this.gameId = parseInt(params['id']);
+        this.store.dispatch(new guestActions.GameAction(this.gameId));
         this.store.select(fromRoot.getGame).subscribe(data => {
           if (data) {
             this.gameInfo = data;
+            this.checkAlreadyJoined();
             this.utilityService.toggleLoadingSpinner("hide");
           }
         });
@@ -49,4 +63,26 @@ export class GameComponent implements OnInit {
 
   }
 
+  /**
+   * join the game
+   */
+  public joinGame() {
+    this.store.dispatch(new userActions.JoinGameAction(this.gameId));
+  }
+
+  /**
+   * check user already joined to game ot not
+   */
+  private checkAlreadyJoined() {
+    this.store.select(fromRoot.getUserProfileInfo).pipe(first()).subscribe(data => {
+      if (!data) {
+        this.store.dispatch(new userActions.ProfileInfoAction());
+        this.store.select(fromRoot.getUserProfileInfo).subscribe(me => {
+          if (me) {
+            this.alreadyJoined = this.gameInfo.users.filter(user => user.id === me.id).length > 0;
+          }
+        })
+      }
+    });
+  }
 }

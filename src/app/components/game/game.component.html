@@ -19,4 +19,5 @@
       </li>
     </ul>
   </div>
+  <button *ngIf="isUserLoggedIn && !alreadyJoined" class="btn btn-info" (click)="joinGame()">Join</button>
 </section>

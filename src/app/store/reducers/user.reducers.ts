@@ -1,8 +1,10 @@
 import * as userActions from '../actions/user.action';
+import {User} from '../../services/models/user.model';
 
 export interface State {
   isLoggedIn: boolean;
   loginData: any,
+  me: User,
   name: string;
   email: string;
   error: any;
@@ -11,6 +13,7 @@ export interface State {
 
 const initialState: State = {
   isLoggedIn: false,
+  me: null,
   loginData: null,
   name: '',
   email: '',
@@ -22,7 +25,8 @@ const initialState: State = {
 export function reducer(state = initialState, action: userActions.Actions): State {
   switch (action.type) {
 
-    case userActions.LOGIN: {
+    case userActions.LOGIN:
+    case userActions.PROFILE_INFO: {
       return {
         ...state
       }
@@ -37,6 +41,13 @@ export function reducer(state = initialState, action: userActions.Actions): Stat
       };
     }
 
+    case userActions.PROFILE_INFO_SUCCESS: {
+      return {
+        ...state,
+        me: action.payload
+      }
+    }
+
     case userActions.AUTHENTICATE: {
       return {
         ...state,
@@ -44,7 +55,8 @@ export function reducer(state = initialState, action: userActions.Actions): Stat
       }
     }
 
-    case userActions.LOGIN_FAIL: {
+    case userActions.LOGIN_FAIL:
+    case userActions.PROFILE_INFO_FAIL: {
       return {
         ...state,
         error: action.payload,
@@ -61,6 +73,7 @@ export function reducer(state = initialState, action: userActions.Actions): Stat
 
 export const getLoginData = (state: State) => state.loginData;
 export const isLoggedIn = (state: State) => state.isLoggedIn;
+export const getUserProfileInfo = (state: State) => state.me;
 export const getUserEmail = (state: State) => state.email;
 export const getUserName = (state: State) => state.name;
 export const isFetching = (state: State) => state.isFetching;

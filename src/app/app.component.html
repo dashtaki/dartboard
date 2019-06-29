@@ -14,11 +14,11 @@
   <li *ngIf="isUserLoggedIn" class="nav-item">
     <a routerLink="profile" class="nav-link">Profile</a>
   </li>
-  <li class="nav-item">
-    <a *ngIf="isUserLoggedIn" routerLink="login" (click)="logoutUser()" class="nav-link">Logout</a>
-  </li>
   <li *ngIf="isUserLoggedIn" class="nav-item">
     <a routerLink="create-game" class="nav-link">Create Game</a>
+  </li>
+  <li class="nav-item">
+    <a *ngIf="isUserLoggedIn" routerLink="login" (click)="logoutUser()" class="nav-link">Logout</a>
   </li>
 </ul>
 
