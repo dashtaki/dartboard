@@ -4,7 +4,7 @@ import {Observable, of} from 'rxjs';
 import {Action} from '@ngrx/store';
 import * as userActions from '../actions/user.action';
 import {catchError, map, switchMap} from 'rxjs/operators';
-import {UserService} from "../../services/user/user.service";
+import {UserService} from '../../services/user/user.service';
 
 
 @Injectable()
