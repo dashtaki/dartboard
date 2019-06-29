@@ -1,4 +1,5 @@
 import {User} from './user.model';
+import {Winner} from './winner.model';
 
 export interface Game {
   id: number;
@@ -6,8 +7,8 @@ export interface Game {
   updated_at: Date;
   target_score: number;
   winner_id: number;
-  users: User[];
-  winner: User;
+  users?: User[];
+  winner: Winner;
 }
 
 

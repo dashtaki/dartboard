@@ -1,0 +1,22 @@
+<ng-container *ngIf="games.length">
+  <ul>
+    <li *ngFor="let game of games | paginate: { id: 'foo',
+                                                      itemsPerPage: itemsPerPage,
+                                                      currentPage: currentPage,
+                                                      totalItems: total }">
+      <div>Name: {{game.created_at}}</div>
+      <div>Email: {{game.updated_at}}</div>
+      <div>Score: {{game.target_score}}</div>
+      <div>Score: {{game.winner.name}}</div>
+      <div>Score: {{game.winner.name}}</div>
+      <div>Score: {{game.winner.score}}</div>
+    </li>
+  </ul>
+
+  <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+</ng-container>
+
+<ng-container *ngIf="games.length < 1">
+  <div> There is not any game to show.</div>
+</ng-container>
+

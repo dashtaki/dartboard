@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Game} from '../models/game';
 import {Observable} from 'rxjs';
 import {AllUsers} from "../models/all-users.model";
+import {AllGames} from "../models/all-games.model";
 
 @Injectable({
   providedIn: 'root'
@@ -16,11 +17,11 @@ export class GuestService {
     return this.http.get<Game>(`/api/game/${gameId}`);
   }
 
-  public getAllGames(pageNumber): Observable<any> {
-    return this.http.get(`/api/game?page=${pageNumber}`);
+  public getAllGames(pageNumber: number): Observable<AllGames> {
+    return this.http.get<AllGames>(`/api/game?page=${pageNumber}`);
   }
 
-  public getAllUsers(pageNumber): Observable<AllUsers> {
+  public getAllUsers(pageNumber: number): Observable<AllUsers> {
     return this.http.get<AllUsers>(`/api/user?page=${pageNumber}`);
   }
 

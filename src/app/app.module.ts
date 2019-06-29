@@ -22,6 +22,8 @@ import {environment} from '../environments/environment';
 import {EffectsModule} from "@ngrx/effects";
 import {UserEffects} from './store/effects/user.effect';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
+import {AllGamesComponent} from './components/all-games/all-games.component';
+import {GuestEffect} from './store/effects/guest.effect';
 
 const DECLARATIONS = [
   AppComponent,
@@ -29,7 +31,8 @@ const DECLARATIONS = [
   AllUsersComponent,
   LoginComponent,
   RegisterComponent,
-  UserProfileComponent
+  UserProfileComponent,
+  AllGamesComponent
 ];
 
 @NgModule({
@@ -43,7 +46,7 @@ const DECLARATIONS = [
     ReactiveFormsModule,
     StoreModule.forRoot(reducers, {metaReducers}),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
-    EffectsModule.forRoot([UserEffects]),
+    EffectsModule.forRoot([UserEffects, GuestEffect]),
   ],
   providers: [GuestService, UserService, UtilityService,
     {provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true},
