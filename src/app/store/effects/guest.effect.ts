@@ -26,6 +26,18 @@ export class GuestEffect {
     })
   );
 
+  @Effect()
+  Game$: Observable<Action> = this.actions$.pipe(
+    ofType(guestActions.GAME),
+    map((action: guestActions.GameAction) => action.payload),
+    switchMap(gameId => {
+      return this.guestService.getGameById(gameId).pipe(
+        map((success) => new guestActions.GameSuccessAction(success)),
+        catchError((error) => of(new guestActions.GameFailAction(error)))
+      );
+    })
+  );
+
 }
 
 

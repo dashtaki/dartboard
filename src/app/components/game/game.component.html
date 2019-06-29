@@ -1,5 +1,22 @@
 <section>
   <div>Score: {{gameInfo.target_score}}</div>
-  <div>Created Date: {{gameInfo.created_at}}</div>
-  <div>Updated Date: {{gameInfo.updated_at}}</div>
+  <div>Creation Date: {{gameInfo.created_at}}</div>
+  <div>Last Update Date: {{gameInfo.updated_at}}</div>
+  <ul>Users:
+    <li *ngFor="let user of gameInfo.users">
+      <div>Name: {{user.name}}</div>
+      <div>Score: {{user.score}}</div>
+    </li>
+  </ul>
+  <div *ngIf="gameInfo.winner_id">
+    Winner:
+    <ul>
+      <li>
+        Winner Name: {{gameInfo.winner.name}}
+      </li>
+      <li>
+        Winner Score: {{gameInfo.winner.score}}
+      </li>
+    </ul>
+  </div>
 </section>

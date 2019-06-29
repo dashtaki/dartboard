@@ -30,5 +30,6 @@ export const errorUser = createSelector(getUserState, fromUser.error);
 /*  User state selectors  */
 export const getGuestState = (state: State) => state.guest;
 export const getAllGames = createSelector(getGuestState, fromGuest.getAllGames);
+export const getGame = createSelector(getGuestState, fromGuest.getGame);
 export const isFetchingGuest = createSelector(getGuestState, fromGuest.isFetching);
 export const errorGuest = createSelector(getGuestState, fromGuest.error);

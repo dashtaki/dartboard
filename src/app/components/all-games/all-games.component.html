@@ -4,13 +4,14 @@
                                                       itemsPerPage: itemsPerPage,
                                                       currentPage: currentPage,
                                                       totalItems: total }">
-      <div>Name: {{game.created_at}}</div>
-      <div>Email: {{game.updated_at}}</div>
-      <div>Score: {{game.target_score}}</div>
-      <div>Score: {{game.winner.name}}</div>
-      <div>Score: {{game.winner.name}}</div>
-      <div>Score: {{game.winner.score}}</div>
+      <div>Creation date: {{game.created_at}}</div>
+      <div>Last update date: {{game.updated_at}}</div>
+      <div>Target Score: {{game.target_score}}</div>
+      <div *ngIf="game.winner">Winner Name: {{game.winner.name}}</div>
+      <div *ngIf="game.winner">Winner Score: {{game.winner.score}}</div>
+      <a routerLink="/game/{{game.id}}">Details</a>
     </li>
+
   </ul>
 
   <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
