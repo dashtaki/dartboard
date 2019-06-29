@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="create-game">
+    <h2 class="create-game-header">Create Game</h2>
+    <form [formGroup]="createGameForm" class="create-game-container" (ngSubmit)="createGame()">
+
+      <p [ngClass]="{ 'has-error': isSubmitted && formControls.targetScore.errors }">
+        <input type="text" placeholder="UserName" formControlName="targetScore">
+      </p>
+      <div *ngIf="isSubmitted && formControls.targetScore.errors" class="help-block">
+        <div *ngIf="formControls.targetScore.errors.required">User name is required</div>
+      </div>
+
+      <p>
+        <input type="submit" value="Create Game">
+      </p>
+
+    </form>
+  </div>
+</div>

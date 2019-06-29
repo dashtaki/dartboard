@@ -24,6 +24,7 @@ import {UserEffects} from './store/effects/user.effect';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {AllGamesComponent} from './components/all-games/all-games.component';
 import {GuestEffect} from './store/effects/guest.effect';
+import {CreateGameComponent} from './components/create-game/create-game.component';
 
 const DECLARATIONS = [
   AppComponent,
@@ -32,7 +33,8 @@ const DECLARATIONS = [
   LoginComponent,
   RegisterComponent,
   UserProfileComponent,
-  AllGamesComponent
+  AllGamesComponent,
+  CreateGameComponent
 ];
 
 @NgModule({

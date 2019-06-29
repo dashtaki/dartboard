@@ -26,6 +26,18 @@ export class UserEffects {
     })
   );
 
+  @Effect()
+  creatGame$: Observable<Action> = this.actions$.pipe(
+    ofType(userActions.CREATE_GAME),
+    map((action: userActions.CreateGameAction) => action.payload),
+    switchMap(targetScore => {
+      return this.userService.createGame(targetScore).pipe(
+        map((success) => new userActions.CreateGameSuccessAction(success)),
+        catchError((error) => of(new userActions.CreateGameFailAction(error)))
+      );
+    })
+  );
+
 }
 
 

@@ -1,0 +1,77 @@
+.create-game {
+  width: 400px;
+  margin: 16px auto;
+  font-size: 16px;
+}
+
+.create-game-header,
+.create-game p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.create-game-triangle {
+  width: 0;
+  margin-right: auto;
+  margin-left: auto;
+  border: 12px solid transparent;
+  border-bottom-color: rgb(15, 66, 107);
+}
+
+.create-game-header {
+  background: rgb(12, 77, 129);
+  padding: 20px;
+  font-size: 1.4em;
+  font-weight: normal;
+  text-align: center;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.create-game-container {
+  background: #ebebeb;
+  padding: 12px;
+}
+
+.create-game {
+  p {
+    padding: 12px;
+  }
+
+  input {
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    border-width: 1px;
+    border-style: solid;
+    padding: 16px;
+    outline: 0;
+    font-family: inherit;
+    font-size: 0.95em;
+  }
+}
+
+.create-game input {
+  background: #fff;
+  border-color: #bbb;
+  color: #555;
+}
+
+.create-game input:focus {
+  border-color: #888;
+}
+
+.create-game input[type="submit"] {
+  background: rgb(1, 29, 51);
+  border-color: transparent;
+  color: #fff;
+  cursor: pointer;
+}
+
+.create-game input[type="submit"]:hover {
+  background: #17c;
+}
+
+.create-game input[type="submit"]:focus {
+  border-color: #05a;
+}

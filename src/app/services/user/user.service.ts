@@ -5,7 +5,8 @@ import {User} from '../models/user.model';
 import {Login} from '../models/login.model';
 import * as userActions from '../../store/actions/user.action';
 import {Store} from '@ngrx/store';
-import * as fromRoot from "../../store/reducers";
+import * as fromRoot from '../../store/reducers';
+import {CreateGame} from '../models/create-game.model';
 
 @Injectable({
   providedIn: 'root'
@@ -39,5 +40,9 @@ export class UserService {
 
   public editUserProfile(editedData: any): Observable<any> {
     return this.http.put<any>('/api/me', editedData);
+  }
+
+  public createGame(targetScore: CreateGame): Observable<any> {
+    return this.http.post<any>('/api/game', targetScore);
   }
 }
