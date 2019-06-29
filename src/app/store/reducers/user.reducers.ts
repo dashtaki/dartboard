@@ -36,6 +36,13 @@ export function reducer(state = initialState, action: userActions.Actions): Stat
       };
     }
 
+    case userActions.AUTHENTICATE: {
+      return {
+        ...state,
+        isLoggedIn: action.payload
+      }
+    }
+
     case userActions.LOGIN_FAIL: {
       return {
         ...state,

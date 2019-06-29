@@ -4,6 +4,8 @@ export const LOGIN = '[User] Login';
 export const LOGIN_SUCCESS = '[User] Login Success';
 export const LOGIN_FAIL = '[User] Login Fail';
 
+export const AUTHENTICATE = '[User] Authenticate';
+
 export class LoginAction implements Action {
   readonly type = LOGIN;
 
@@ -25,7 +27,15 @@ export class LoginFailAction implements Action {
   }
 }
 
+export class AuthenticateAction implements Action {
+  readonly type = AUTHENTICATE;
+
+  constructor(public payload: boolean) {
+  }
+}
+
 export type Actions =
   LoginAction
   | LoginFailAction
-  | LoginSuccessAction;
+  | LoginSuccessAction
+  | AuthenticateAction;
