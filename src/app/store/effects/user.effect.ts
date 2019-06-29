@@ -131,6 +131,19 @@ export class UserEffects {
     })
   );
 
+  @Effect()
+  addGameScore$: Observable<Action> = this.actions$.pipe(
+    ofType(userActions.ADD_GAME_SCORE),
+    map((action: userActions.AddGameScoreAction) => action.payload),
+    switchMap((data) => {
+      return this.userService.addGameScore(data)
+        .pipe(
+          map((success) => new userActions.AddGameScoreSuccessAction(success)),
+          catchError((error) => of(new userActions.AddGameScoreFailAction(error)))
+        );
+    })
+  );
+
 }
 
 

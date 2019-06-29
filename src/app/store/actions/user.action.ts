@@ -35,6 +35,10 @@ export const KICK_GAME = '[User] Kick Game';
 export const KICK_GAME_SUCCESS = '[User] Kick Game Success';
 export const KICK_GAME_FAIL = '[User] Kick Game Fail';
 
+export const ADD_GAME_SCORE = '[User] Add Game Score';
+export const ADD_GAME_SCORE_SUCCESS = '[User] Add Game Score Success';
+export const ADD_GAME_SCORE_FAIL = '[User] Add Game Score Fail';
+
 export class LoginAction implements Action {
   readonly type = LOGIN;
 
@@ -207,6 +211,27 @@ export class KickGameFailAction implements Action {
   }
 }
 
+export class AddGameScoreAction implements Action {
+  readonly type = ADD_GAME_SCORE;
+
+  constructor(public payload: any) {
+  }
+}
+
+export class AddGameScoreSuccessAction implements Action {
+  readonly type = ADD_GAME_SCORE_SUCCESS;
+
+  constructor(public payload: any) {
+  }
+}
+
+export class AddGameScoreFailAction implements Action {
+  readonly type = ADD_GAME_SCORE_FAIL;
+
+  constructor(public payload: any) {
+  }
+}
+
 
 export type Actions =
   LoginAction
@@ -233,5 +258,8 @@ export type Actions =
   | InviteGameFailAction
   | KickGameAction
   | KickGameSuccessAction
-  | KickGameFailAction;
+  | KickGameFailAction
+  | AddGameScoreAction
+  | AddGameScoreSuccessAction
+  | AddGameScoreFailAction;
 

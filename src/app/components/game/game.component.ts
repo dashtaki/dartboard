@@ -9,6 +9,7 @@ import {Winner} from '../../services/models/winner.model';
 import {User} from '../../services/models/user.model';
 import * as userActions from '../../store/actions/user.action';
 import {first} from 'rxjs/operators';
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-leader-board',
@@ -21,10 +22,13 @@ export class GameComponent implements OnInit {
   public gameId: number;
   public alreadyJoined: boolean;
   public availableUsersToInvite: User[];
+  public isSubmitted: boolean;
+  public addGameScoreForm: FormGroup;
 
   constructor(private store: Store<fromRoot.State>,
               private route: ActivatedRoute,
-              private utilityService: UtilityService) {
+              private utilityService: UtilityService,
+              private formBuilder: FormBuilder) {
   }
 
   /**
@@ -43,6 +47,11 @@ export class GameComponent implements OnInit {
     this.alreadyJoined = true;
     this.isUserLoggedIn = false;
     this.availableUsersToInvite = [];
+    this.isSubmitted = false;
+    this.addGameScoreForm = this.formBuilder.group({
+      score: ['', Validators.required]
+    });
+
     this.store.select(fromRoot.isLoggedIn).subscribe(data => {
       if (data) this.isUserLoggedIn = data
     });
@@ -141,5 +150,24 @@ export class GameComponent implements OnInit {
     this.store.dispatch(new userActions.KickGameAction(data));
     // TODO: make sure api is 200
     this.gameInfo.users = this.gameInfo.users.filter(user => user.id !== userId);
+  }
+
+  /**
+   * get login form controls
+   */
+  get formControls() {
+    return this.addGameScoreForm.controls;
+  }
+
+
+  /**
+   * add game score
+   */
+  public addGameScore() {
+    const data = {score: this.formControls.score.value, gameId: this.gameId};
+    this.store.dispatch(new userActions.AddGameScoreAction(data));
+    // TODO: make sure api returned 200
+    this.gameInfo.target_score = this.gameInfo.target_score + this.formControls.score.value;
+    this.formControls.score.setValue(0);
   }
 }

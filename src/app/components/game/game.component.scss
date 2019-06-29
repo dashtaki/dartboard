@@ -1,0 +1,77 @@
+.add-score {
+  width: 400px;
+  margin: 16px auto;
+  font-size: 16px;
+}
+
+.add-score-header,
+.add-score p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.add-score-triangle {
+  width: 0;
+  margin-right: auto;
+  margin-left: auto;
+  border: 12px solid transparent;
+  border-bottom-color: rgb(15, 66, 107);
+}
+
+.add-score-header {
+  background: rgb(12, 77, 129);
+  padding: 20px;
+  font-size: 1.4em;
+  font-weight: normal;
+  text-align: center;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.add-score-container {
+  background: #ebebeb;
+  padding: 12px;
+}
+
+.add-score {
+  p {
+    padding: 12px;
+  }
+
+  input {
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    border-width: 1px;
+    border-style: solid;
+    padding: 16px;
+    outline: 0;
+    font-family: inherit;
+    font-size: 0.95em;
+  }
+}
+
+.add-score input {
+  background: #fff;
+  border-color: #bbb;
+  color: #555;
+}
+
+.add-score input:focus {
+  border-color: #888;
+}
+
+.add-score input[type="submit"] {
+  background: rgb(1, 29, 51);
+  border-color: transparent;
+  color: #fff;
+  cursor: pointer;
+}
+
+.add-score input[type="submit"]:hover {
+  background: #17c;
+}
+
+.add-score input[type="submit"]:focus {
+  border-color: #05a;
+}

@@ -30,7 +30,8 @@ export function reducer(state = initialState, action: userActions.Actions): Stat
     case userActions.SET_PROFILE_INFO:
     case userActions.LEAVE_GAME:
     case userActions.INVITE_GAME:
-    case userActions.KICK_GAME: {
+    case userActions.KICK_GAME:
+    case userActions.ADD_GAME_SCORE: {
       return {
         ...state
       }
@@ -75,7 +76,8 @@ export function reducer(state = initialState, action: userActions.Actions): Stat
     case userActions.SET_PROFILE_INFO_FAIL:
     case userActions.LEAVE_GAME_FAIL:
     case userActions.INVITE_GAME_FAIL:
-    case userActions.KICK_GAME_FAIL: {
+    case userActions.KICK_GAME_FAIL:
+    case userActions.ADD_GAME_SCORE_FAIL: {
       return {
         ...state,
         error: action.payload,

@@ -61,10 +61,17 @@ export class UserService {
     return this.http.post<any>(`/api/game/${data.gameId}/invite`, requestBody);
   }
 
-  public kinkUser(data): Observable<any> {
+  public kickUser(data: any): Observable<any> {
     const requestBody = {
       user_id: data.userId
     };
     return this.http.post(`/api/game/${data.gameId}/kick`, requestBody);
+  }
+
+  public addGameScore(data: any): Observable<any> {
+    const requestBody = {
+      score: data.score
+    };
+    return this.http.post(`/api/game/${data.gameId}/score`, requestBody);
   }
 }

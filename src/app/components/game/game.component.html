@@ -31,4 +31,22 @@
       <button class="btn btn-default btn-lg" (click)="inviteUser(user.id)">Invite</button>
     </li>
   </ul>
+
+  <div class="add-score">
+    <h2 class="add-score-header">Create Game</h2>
+    <form [formGroup]="addGameScoreForm" class="add-score-container" (ngSubmit)="addGameScore()">
+
+      <p [ngClass]="{ 'has-error': isSubmitted && formControls.score.errors }">
+        <input type="number" placeholder="Score" formControlName="score">
+      </p>
+      <div *ngIf="isSubmitted && formControls.score.errors" class="help-block">
+        <div *ngIf="formControls.score.errors.required">Score is required</div>
+      </div>
+
+      <p>
+        <input type="submit" value="Create Game">
+      </p>
+
+    </form>
+  </div>
 </section>
