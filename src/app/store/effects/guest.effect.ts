@@ -3,15 +3,17 @@ import {Actions, Effect, ofType} from '@ngrx/effects';
 import {Observable, of} from 'rxjs';
 import {Action} from '@ngrx/store';
 import * as guestActions from '../actions/guest.action';
-import {catchError, map, switchMap} from 'rxjs/operators';
+import {catchError, map, switchMap, tap} from 'rxjs/operators';
 import {GuestService} from '../../services/guest/guest.service';
+import {Router} from '@angular/router';
 
 
 @Injectable()
 export class GuestEffect {
   constructor(
     private actions$: Actions,
-    private guestService: GuestService) {
+    private guestService: GuestService,
+    private router: Router) {
   }
 
   @Effect()
@@ -62,6 +64,10 @@ export class GuestEffect {
     })
   );
 
+  @Effect({dispatch: false})
+  registerSuccess$: Observable<Action> = this.actions$.pipe(
+    ofType(guestActions.REGISTER_SUCCESS),
+    tap(() => this.router.navigate(['./login']))
+  );
+
 }
-
-

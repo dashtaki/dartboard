@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
-import {first} from 'rxjs/operators';
-import {GuestService} from '../../services/guest/guest.service';
+import {Store} from '@ngrx/store';
+import * as fromRoot from '../../store/reducers/index';
+import * as guestActions from '../../store/actions/guest.action';
 
 @Component({
   selector: 'app-register',
@@ -15,7 +16,7 @@ export class RegisterComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private router: Router,
-              private guestService: GuestService) {
+              private store: Store<fromRoot.State>) {
   }
 
   /**
@@ -47,11 +48,6 @@ export class RegisterComponent implements OnInit {
       return;
     }
 
-    this.guestService.register(this.registerForm.value)
-      .pipe(first())
-      .subscribe(
-        data => {
-          this.router.navigate(['/login']);
-        });
+    this.store.dispatch(new guestActions.RegisterAction(this.registerForm.value));
   }
 }
