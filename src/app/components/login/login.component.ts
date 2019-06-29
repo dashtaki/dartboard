@@ -2,7 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {UserService} from '../../services/user/user.service';
-import {first} from 'rxjs/operators';
+import {Store} from '@ngrx/store';
+import * as fromRoot from '../../store/reducers/index';
+import * as userActions from '../../store/actions/user.action';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +20,8 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private userService: UserService,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private store: Store<fromRoot.State>) {
   }
 
   /**
@@ -51,20 +54,19 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    this.userService.login(this.formControls.username.value, this.formControls.password.value)
-      .pipe(first())
-      .subscribe(
-        userData => {
-          if (userData) {
-            if (userData.access_token) {
-              localStorage.setItem('userInfo', JSON.stringify(userData));
-              this.router.navigate([this.returnUrl]);
-            }
-          }
+    this.store.dispatch(new userActions.LoginAction({
+      username: this.formControls.username.value,
+      password: this.formControls.password.value
+    }));
 
-        });
-    // this.authService.login(this.loginForm.value);
-    // this.router.navigateByUrl('/admin');
+    this.store.select(fromRoot.getLoginData).subscribe(userData => {
+      if (userData) {
+        if (userData.access_token) {
+          localStorage.setItem('userInfo', JSON.stringify(userData));
+          this.router.navigate([this.returnUrl]);
+        }
+      }
+    });
   }
 
 }
