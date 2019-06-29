@@ -10,9 +10,9 @@ import {CreateGameComponent} from './components/create-game/create-game.componen
 
 
 const routes: Routes = [
+  {path: '', redirectTo: 'games', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
-  // {path: '', redirectTo: 'users', pathMatch: 'full'},
   {path: 'game/:id', component: GameComponent},
   {path: 'games', component: AllGamesComponent},
   {path: 'users', component: AllUsersComponent},
