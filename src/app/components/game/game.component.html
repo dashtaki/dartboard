@@ -6,6 +6,7 @@
     <li *ngFor="let user of gameInfo.users">
       <div>Name: {{user.name}}</div>
       <div>Score: {{user.score}}</div>
+      <button class="btn btn-danger btn-lg" (click)="kickUser(user.id)">Kick</button>
     </li>
   </ul>
   <div *ngIf="gameInfo.winner_id">
@@ -23,10 +24,11 @@
 
   <button *ngIf="isUserLoggedIn && alreadyJoined" class="btn btn-info btn-lg" (click)="leaveGame()">Leave</button>
 
+  <h3>Users to invite:</h3>
   <ul>
     <li *ngFor="let user of availableUsersToInvite">
       {{user.name}}
-      <button class="btn btn-default" (click)="inviteUser(user.id)">Invite</button>
+      <button class="btn btn-default btn-lg" (click)="inviteUser(user.id)">Invite</button>
     </li>
   </ul>
 </section>

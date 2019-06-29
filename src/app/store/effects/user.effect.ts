@@ -118,6 +118,19 @@ export class UserEffects {
     })
   );
 
+  @Effect()
+  kickGame$: Observable<Action> = this.actions$.pipe(
+    ofType(userActions.KICK_GAME),
+    map((action: userActions.KickGameAction) => action.payload),
+    switchMap((data) => {
+      return this.userService.kickUser(data)
+        .pipe(
+          map((success) => new userActions.KickGameSuccessAction(success)),
+          catchError((error) => of(new userActions.KickGameFailAction(error)))
+        );
+    })
+  );
+
 }
 
 

@@ -128,7 +128,18 @@ export class GameComponent implements OnInit {
    * filter users
    * @param allUsers
    */
-  private filterUsers(allUsers) {
+  private filterUsers(allUsers: User[]) {
     return allUsers.filter(element => this.gameInfo.users.includes(element));
+  }
+
+  /**
+   * kick user
+   * @param userId
+   */
+  public kickUser(userId: number) {
+    const data = {userId: userId, gameId: this.gameId};
+    this.store.dispatch(new userActions.KickGameAction(data));
+    // TODO: make sure api is 200
+    this.gameInfo.users = this.gameInfo.users.filter(user => user.id !== userId);
   }
 }
