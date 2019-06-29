@@ -2,6 +2,7 @@ import * as userActions from '../actions/user.action';
 
 export interface State {
   isLoggedIn: boolean;
+  loginData: any,
   name: string;
   email: string;
   error: any;
@@ -10,6 +11,7 @@ export interface State {
 
 const initialState: State = {
   isLoggedIn: false,
+  loginData: null,
   name: '',
   email: '',
   error: '',
@@ -29,8 +31,7 @@ export function reducer(state = initialState, action: userActions.Actions): Stat
     case userActions.LOGIN_SUCCESS: {
       return {
         ...state,
-        name: action.payload.name,
-        email: action.payload.email,
+        loginData: action.payload,
         isLoggedIn: true,
         isFetching: false
       };
@@ -58,6 +59,7 @@ export function reducer(state = initialState, action: userActions.Actions): Stat
   }
 }
 
+export const getLoginData = (state: State) => state.loginData;
 export const isLoggedIn = (state: State) => state.isLoggedIn;
 export const getUserEmail = (state: State) => state.email;
 export const getUserName = (state: State) => state.name;
