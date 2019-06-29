@@ -31,7 +31,7 @@ export class UserProfileComponent implements OnInit {
    * ngOnInit life cycle hook
    */
   ngOnInit() {
-    this.utilityService.toggleLoadingSpinner("show");
+    this.utilityService.toggleLoadingSpinner('show');
     this.isSubmitted = false;
     this.enableEdit = false;
     this.toggleEditBtnText = 'Edit';
@@ -62,7 +62,7 @@ export class UserProfileComponent implements OnInit {
         this.userProfileData = data;
         this.formControls.name.setValue(data.name);
         this.formControls.email.setValue(data.email);
-        this.utilityService.toggleLoadingSpinner("hide");
+        this.utilityService.toggleLoadingSpinner('hide');
       }
     });
   }
@@ -90,7 +90,7 @@ export class UserProfileComponent implements OnInit {
       password: this.formControls.password.value
     };
 
-    this.utilityService.toggleLoadingSpinner("show");
+    this.utilityService.toggleLoadingSpinner('show');
     this.store.dispatch(new userActions.SetProfileInfoAction(meRequestBody));
     this.store.select(fromRoot.getUserProfileInfo).subscribe(userInfo => {
       if (userInfo) {
@@ -98,7 +98,7 @@ export class UserProfileComponent implements OnInit {
         this.userProfileData.email_verified_at = userInfo.email_verified_at ? userInfo.email_verified_at : 'Not Verified';
         this.formControls.name.setValue(userInfo.name);
         this.formControls.email.setValue(userInfo.email);
-        this.utilityService.toggleLoadingSpinner("hide");
+        this.utilityService.toggleLoadingSpinner('hide');
         this.toggleEditing();
       }
     }, () => this.router.navigate(['./login']));

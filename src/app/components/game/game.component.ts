@@ -36,13 +36,13 @@ export class GameComponent implements OnInit {
    */
   ngOnInit() {
     this.gameInfo = new class implements Game {
-      created_at: Date;
+      createdAt: Date;
       id: number;
-      target_score: number;
-      updated_at: Date;
+      targetScore: number;
+      updatedAt: Date;
       users: User[];
       winner: Winner;
-      winner_id: number;
+      winnerId: number;
     };
     this.alreadyJoined = true;
     this.isUserLoggedIn = false;
@@ -53,11 +53,13 @@ export class GameComponent implements OnInit {
     });
 
     this.store.select(fromRoot.isLoggedIn).subscribe(data => {
-      if (data) this.isUserLoggedIn = data
+      if (data) {
+        this.isUserLoggedIn = data
+      }
     });
 
 
-    this.utilityService.toggleLoadingSpinner("show");
+    this.utilityService.toggleLoadingSpinner('show');
     this.route.params.subscribe(params => {
       if (params['id']) {
         this.gameId = parseInt(params['id']);
@@ -67,7 +69,7 @@ export class GameComponent implements OnInit {
             this.gameInfo = data;
             this.checkAlreadyJoined();
             this.getAvailableUsersToInvite();
-            this.utilityService.toggleLoadingSpinner("hide");
+            this.utilityService.toggleLoadingSpinner('hide');
           }
         });
       }
@@ -93,7 +95,7 @@ export class GameComponent implements OnInit {
           if (me) {
             this.alreadyJoined = this.gameInfo.users.filter(user => user.id === me.id).length > 0;
           }
-        })
+        });
       }
     });
   }
@@ -102,7 +104,7 @@ export class GameComponent implements OnInit {
    * leave the game
    */
   public leaveGame() {
-    this.store.dispatch(new userActions.LeaveGameAction(this.gameId))
+    this.store.dispatch(new userActions.LeaveGameAction(this.gameId));
   }
 
   /**
@@ -166,7 +168,7 @@ export class GameComponent implements OnInit {
     const data = {score: this.formControls.score.value, gameId: this.gameId};
     this.store.dispatch(new userActions.AddGameScoreAction(data));
     // TODO: make sure api returned 200
-    this.gameInfo.target_score = this.gameInfo.target_score + this.formControls.score.value;
+    this.gameInfo.targetScore = this.gameInfo.targetScore + this.formControls.score.value;
     this.formControls.score.setValue(0);
   }
 }

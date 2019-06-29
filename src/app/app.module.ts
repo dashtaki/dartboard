@@ -19,7 +19,7 @@ import {JwtInterceptor} from './services/interceptors/jwt-interceptor.service';
 import {StoreModule} from '@ngrx/store';
 import {metaReducers, reducers} from './store/reducers';
 import {environment} from '../environments/environment';
-import {EffectsModule} from "@ngrx/effects";
+import {EffectsModule} from '@ngrx/effects';
 import {UserEffects} from './store/effects/user.effect';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {AllGamesComponent} from './components/all-games/all-games.component';

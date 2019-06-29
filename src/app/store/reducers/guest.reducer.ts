@@ -4,10 +4,10 @@ import {Game} from '../../services/models/game';
 import {AllUsers} from '../../services/models/all-users.model';
 
 export interface State {
-  allGames: AllGames,
-  allUsers: AllUsers,
-  registerData: any,
-  game: Game,
+  allGames: AllGames;
+  allUsers: AllUsers;
+  registerData: any;
+  game: Game;
   error: any;
   isFetching: boolean;
 }
@@ -31,7 +31,7 @@ export function reducer(state = initialState, action: guestActions.Actions): Sta
     case guestActions.REGISTER: {
       return {
         ...state
-      }
+      };
     }
 
     case guestActions.ALL_GAMES_SUCCESS: {
@@ -47,7 +47,7 @@ export function reducer(state = initialState, action: guestActions.Actions): Sta
         ...state,
         game: action.payload,
         isFetching: false
-      }
+      };
     }
 
     case guestActions.ALL_USERS_SUCCESS: {
@@ -55,7 +55,7 @@ export function reducer(state = initialState, action: guestActions.Actions): Sta
         ...state,
         allUsers: action.payload,
         isFetching: false
-      }
+      };
     }
 
     case guestActions.REGISTER_SUCCESS: {
@@ -63,7 +63,7 @@ export function reducer(state = initialState, action: guestActions.Actions): Sta
         ...state,
         registerData: action.payload,
         isFetching: false
-      }
+      };
     }
 
     case guestActions.ALL_GAMES_FAIL:
@@ -74,12 +74,13 @@ export function reducer(state = initialState, action: guestActions.Actions): Sta
         ...state,
         error: action.payload,
         isFetching: false
-      }
+      };
     }
 
     default: {
       return state;
     }
+      ;
 
   }
 }

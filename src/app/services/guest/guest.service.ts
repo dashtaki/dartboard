@@ -2,8 +2,8 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Game} from '../models/game';
 import {Observable} from 'rxjs';
-import {AllUsers} from "../models/all-users.model";
-import {AllGames} from "../models/all-games.model";
+import {AllUsers} from '../models/all-users.model';
+import {AllGames} from '../models/all-games.model';
 
 @Injectable({
   providedIn: 'root'

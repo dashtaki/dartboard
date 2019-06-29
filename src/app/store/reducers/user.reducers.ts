@@ -3,8 +3,8 @@ import {User} from '../../services/models/user.model';
 
 export interface State {
   isLoggedIn: boolean;
-  loginData: any,
-  me: User,
+  loginData: any;
+  me: User;
   name: string;
   email: string;
   error: any;
@@ -34,7 +34,7 @@ export function reducer(state = initialState, action: userActions.Actions): Stat
     case userActions.ADD_GAME_SCORE: {
       return {
         ...state
-      }
+      };
     }
 
     case userActions.LOGIN_SUCCESS: {
@@ -53,7 +53,7 @@ export function reducer(state = initialState, action: userActions.Actions): Stat
         email: action.payload.email,
         name: action.payload.name,
         isFetching: false
-      }
+      };
     }
 
     case userActions.SET_PROFILE_INFO_SUCCESS: {
@@ -61,14 +61,14 @@ export function reducer(state = initialState, action: userActions.Actions): Stat
         ...state,
         email: action.payload.email,
         name: action.payload.name,
-      }
+      };
     }
 
     case userActions.AUTHENTICATE: {
       return {
         ...state,
         isLoggedIn: action.payload
-      }
+      };
     }
 
     case userActions.LOGIN_FAIL:
@@ -82,12 +82,13 @@ export function reducer(state = initialState, action: userActions.Actions): Stat
         ...state,
         error: action.payload,
         isFetching: false
-      }
+      };
     }
 
     default: {
       return state;
     }
+      ;
 
   }
 }

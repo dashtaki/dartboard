@@ -22,7 +22,7 @@ export class AllGamesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.utilityService.toggleLoadingSpinner("show");
+    this.utilityService.toggleLoadingSpinner('show');
     this.page = 1;
     this.games = [];
     this.store.dispatch(new guestActions.AllGamesAction(this.page));
@@ -32,9 +32,9 @@ export class AllGamesComponent implements OnInit {
         this.currentPage = allGames.current_page;
         this.total = allGames.total;
         this.games = allGames.data;
-        this.utilityService.toggleLoadingSpinner("hide");
+        this.utilityService.toggleLoadingSpinner('hide');
       }
-    })
+    });
   }
 
 }

@@ -25,7 +25,7 @@ export class AppComponent implements OnInit {
     const isLoggedIn = this.utilityService.isUserLoggedIn();
     this.store.dispatch(new userActions.AuthenticateAction(isLoggedIn));
     this.store.select(fromRoot.isLoggedIn).subscribe(data => {
-      this.isUserLoggedIn = data
+      this.isUserLoggedIn = data;
     });
 
   }

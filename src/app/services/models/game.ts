@@ -3,10 +3,10 @@ import {Winner} from './winner.model';
 
 export interface Game {
   id: number;
-  created_at: Date;
-  updated_at: Date;
-  target_score: number;
-  winner_id: number;
+  createdAt: Date;
+  updatedAt: Date;
+  targetScore: number;
+  winnerId: number;
   users?: User[];
   winner: Winner;
 }
