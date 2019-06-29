@@ -1,15 +1,21 @@
-<ul>
-  <li *ngFor="let user of users | paginate: { id: 'foo',
+<ng-container *ngIf="users.length">
+  <ul>
+    <li *ngFor="let user of users | paginate: { id: 'foo',
                                                       itemsPerPage: itemsPerPage,
                                                       currentPage: currentPage,
                                                       totalItems: total }">
-    <div>Name: {{user.name}}</div>
-    <div>Email: {{user.email}}</div>
-    <div>Created at: {{user.created_at}}</div>
-    <div>Updated at: {{user.updated_at}}</div>
-    <div>Score: {{user.score}}</div>
+      <div>Name: {{user.name}}</div>
+      <div>Email: {{user.email}}</div>
+      <div>Created at: {{user.created_at}}</div>
+      <div>Updated at: {{user.updated_at}}</div>
+      <div>Score: {{user.score}}</div>
 
-  </li>
-</ul>
+    </li>
+  </ul>
 
-<pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+  <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+</ng-container>
+
+<ng-container>
+  <span *ngIf="users.length < 1">There is not any user to show.</span>
+</ng-container>
