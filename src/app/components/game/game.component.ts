@@ -9,7 +9,7 @@ import {Winner} from '../../services/models/winner.model';
 import {User} from '../../services/models/user.model';
 import * as userActions from '../../store/actions/user.action';
 import {first} from 'rxjs/operators';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-leader-board',
@@ -158,7 +158,6 @@ export class GameComponent implements OnInit {
   get formControls() {
     return this.addGameScoreForm.controls;
   }
-
 
   /**
    * add game score

@@ -3,7 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Store} from '@ngrx/store';
 import * as fromRoot from '../../store/reducers/index';
 import * as userActions from '../../store/actions/user.action';
-import {CreateGame} from "../../services/models/create-game.model";
+import {CreateGame} from '../../services/models/create-game.model';
 
 @Component({
   selector: 'app-create-game',
@@ -27,7 +27,6 @@ export class CreateGameComponent implements OnInit {
       targetScore: ['', Validators.required]
     });
   }
-
 
   /**
    * get login form controls
