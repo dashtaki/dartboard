@@ -1,7 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {GuestService} from "../../services/guest/guest.service";
-import {User} from "../../services/models/user.model";
-import {UtilityService} from "../../services/utility.service";
+import {GuestService} from '../../services/guest/guest.service';
+import {User} from '../../services/models/user.model';
+import {UtilityService} from '../../services/utility.service';
+import * as guestActions from '../../store/actions/guest.action';
+import * as fromRoot from '../../store/reducers';
+import {Store} from '@ngrx/store';
 
 @Component({
   selector: 'app-all-users',
@@ -17,7 +20,8 @@ export class AllUsersComponent implements OnInit {
 
   constructor(
     private guestService: GuestService,
-    private utilityService: UtilityService) {
+    private utilityService: UtilityService,
+    private store: Store<fromRoot.State>) {
   }
 
   /**
@@ -27,13 +31,15 @@ export class AllUsersComponent implements OnInit {
     this.users = [];
     this.utilityService.toggleLoadingSpinner('show');
     this.page = 1;
-    this.guestService.getAllUsers(this.page).subscribe(data => {
+
+    this.store.dispatch(new guestActions.AllUsersAction(this.page));
+    this.store.select(fromRoot.getAllUsers).subscribe(data => {
       if (data) {
-        this.utilityService.toggleLoadingSpinner('hide');
         this.currentPage = data.current_page;
         this.total = data.total;
         this.itemsPerPage = data.per_page;
         this.users = data.data;
+        this.utilityService.toggleLoadingSpinner('hide');
       }
     });
   }
