@@ -4,6 +4,7 @@ import {GameComponent} from './components/game/game.component';
 import {AllUsersComponent} from './components/all-users/all-users.component';
 import {LoginComponent} from './components/login/login.component';
 import {RegisterComponent} from './components/register/register.component';
+import {UserProfileComponent} from "./components/user-profile/user-profile.component";
 
 
 const routes: Routes = [
@@ -11,7 +12,8 @@ const routes: Routes = [
   {path: 'register', component: RegisterComponent},
   // {path: '', redirectTo: 'users', pathMatch: 'full'},
   {path: 'game/:id', component: GameComponent},
-  {path: 'users', component: AllUsersComponent}
+  {path: 'users', component: AllUsersComponent},
+  {path: 'profile', component: UserProfileComponent}
 ];
 
 @NgModule({

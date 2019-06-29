@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="profile">
+    <h2 class="profile-header">Profile Information</h2>
+    <form [formGroup]="profileForm" class="profile-container" (ngSubmit)="editProfile()">
+
+      <div *ngIf="!enableEdit" class="user-info-wrapper">
+        <div class="mb-2"><strong>Name: </strong>{{userProfileData.name}}</div>
+        <div class="mb-2"><strong>Email: </strong>{{userProfileData.email}}</div>
+        <div class="mb-2"><strong>Last update date: </strong>{{userProfileData.updated_at}}</div>
+        <div class="mb-2"><strong>Profile creation date: </strong>{{userProfileData.created_at}}</div>
+        <div class="mb-2"><strong>Email verification date: </strong>{{userProfileData.email_verified_at}}</div>
+      </div>
+
+      <div *ngIf="enableEdit">
+        <p [ngClass]="{ 'has-error': isSubmitted && formControls.name.errors }">
+          <input type="text" placeholder="UserName" formControlName="name">
+        </p>
+        <div *ngIf="isSubmitted && formControls.name.errors" class="help-block">
+          <div *ngIf="formControls.name.errors.required">User name is required</div>
+        </div>
+
+        <p [ngClass]="{ 'has-error': isSubmitted && formControls.email.errors }">
+          <input type="text" placeholder="Email" formControlName="email"
+                 pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+        </p>
+        <div *ngIf="isSubmitted && formControls.email.errors" class="help-block">
+          <div *ngIf="formControls.email.errors.required">Email is required</div>
+          <div *ngIf="formControls.email.errors && formControls.email.errors.pattern">
+            Email is invalid
+          </div>
+        </div>
+
+        <p [ngClass]="{ 'has-error': isSubmitted && formControls.password.errors }">
+          <input type="password" placeholder="Password" formControlName="password">
+        </p>
+
+        <div *ngIf="isSubmitted && formControls.password.errors" class="help-block">
+          <div *ngIf="formControls.password.errors.required">Password is required</div>
+        </div>
+      </div>
+
+      <p *ngIf="enableEdit">
+        <input type="submit" value="Submit">
+      </p>
+
+      <a class="btn btn-info" (click)="toggleEditing()">{{toggleEditBtnText}}</a>
+
+    </form>
+  </div>
+</div>

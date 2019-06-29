@@ -8,9 +8,17 @@
   <li class="nav-item">
     <a routerLink="users" class="nav-link">All Users</a>
   </li>
+  <li *ngIf="isUserLoggedIn" class="nav-item">
+    <a routerLink="profile" class="nav-link">Profile</a>
+  </li>
+  <li class="nav-item">
+    <a *ngIf="isUserLoggedIn" routerLink="login" (click)="logoutUser()" class="nav-link">Logout</a>
+  </li>
 </ul>
 
 <div id="loading-spinner">
   <div class="loader">Loading...</div>
 </div>
+
+<h1>App Component</h1>
 <router-outlet></router-outlet>

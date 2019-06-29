@@ -13,6 +13,7 @@ import {UserService} from './services/user/user.service';
 import {UtilityService} from './services/utility.service';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RegisterComponent} from './components/register/register.component';
+import {UserProfileComponent} from './components/user-profile/user-profile.component';
 import {ApiInterceptor} from './services/interceptors/api-interceptor.service';
 import {JwtInterceptor} from './services/interceptors/jwt-interceptor.service';
 import {StoreModule} from '@ngrx/store';
@@ -27,7 +28,8 @@ const DECLARATIONS = [
   GameComponent,
   AllUsersComponent,
   LoginComponent,
-  RegisterComponent
+  RegisterComponent,
+  UserProfileComponent
 ];
 
 @NgModule({
