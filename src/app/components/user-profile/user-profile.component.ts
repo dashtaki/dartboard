@@ -4,6 +4,9 @@ import {UserService} from '../../services/user/user.service';
 import {Router} from '@angular/router';
 import {Me} from '../../services/models/me.model';
 import {UtilityService} from '../../services/utility.service';
+import {Store} from '@ngrx/store';
+import * as fromRoot from '../../store/reducers/index';
+import * as userActions from '../../store/actions/user.action';
 
 @Component({
   selector: 'app-user-profile',
@@ -20,7 +23,8 @@ export class UserProfileComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private userService: UserService,
               private router: Router,
-              private utilityService: UtilityService) {
+              private utilityService: UtilityService,
+              private store: Store<fromRoot.State>) {
   }
 
   /**
@@ -52,20 +56,15 @@ export class UserProfileComponent implements OnInit {
    * fetch profile information from API
    */
   private fillFormControls() {
-    this.userService.getUserProfile().subscribe(info => {
-        if (info) {
-          this.userProfileData = info;
-          this.userProfileData.email_verified_at = info.email_verified_at ? info.email_verified_at : 'Not Verified';
-          this.formControls.name.setValue(info.name);
-          this.formControls.email.setValue(info.email);
-          this.utilityService.toggleLoadingSpinner("hide");
-        }
-      },
-      () => {
+    this.store.dispatch(new userActions.GetProfileInfoAction());
+    this.store.select(fromRoot.getUserProfileInfo).subscribe(data => {
+      if (data) {
+        this.userProfileData = data;
+        this.formControls.name.setValue(data.name);
+        this.formControls.email.setValue(data.email);
         this.utilityService.toggleLoadingSpinner("hide");
-        this.router.navigate(['./login']);
       }
-    );
+    });
   }
 
   /**
@@ -90,18 +89,20 @@ export class UserProfileComponent implements OnInit {
       email: this.formControls.email.value,
       password: this.formControls.password.value
     };
-    console.log(meRequestBody);
 
-    this.userService.editUserProfile(meRequestBody).subscribe(info => {
-        if (info) {
-          this.userProfileData = info;
-          this.userProfileData.email_verified_at = info.email_verified_at ? info.email_verified_at : 'Not Verified';
-          this.formControls.name.setValue(info.name);
-          this.formControls.email.setValue(info.email);
-        }
-      },
-      () => this.router.navigate(['./login'])
-    );
+    this.utilityService.toggleLoadingSpinner("show");
+    this.store.dispatch(new userActions.SetProfileInfoAction(meRequestBody));
+    this.store.select(fromRoot.getUserProfileInfo).subscribe(userInfo => {
+      if (userInfo) {
+        this.userProfileData = userInfo;
+        this.userProfileData.email_verified_at = userInfo.email_verified_at ? userInfo.email_verified_at : 'Not Verified';
+        this.formControls.name.setValue(userInfo.name);
+        this.formControls.email.setValue(userInfo.email);
+        this.utilityService.toggleLoadingSpinner("hide");
+        this.toggleEditing();
+      }
+    }, () => this.router.navigate(['./login']));
+
   }
 
   /**

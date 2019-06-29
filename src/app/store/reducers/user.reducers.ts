@@ -26,7 +26,8 @@ export function reducer(state = initialState, action: userActions.Actions): Stat
   switch (action.type) {
 
     case userActions.LOGIN:
-    case userActions.PROFILE_INFO: {
+    case userActions.GET_PROFILE_INFO:
+    case userActions.SET_PROFILE_INFO: {
       return {
         ...state
       }
@@ -41,10 +42,21 @@ export function reducer(state = initialState, action: userActions.Actions): Stat
       };
     }
 
-    case userActions.PROFILE_INFO_SUCCESS: {
+    case userActions.GET_PROFILE_INFO_SUCCESS: {
       return {
         ...state,
-        me: action.payload
+        me: action.payload,
+        email: action.payload.email,
+        name: action.payload.name,
+        isFetching: false
+      }
+    }
+
+    case userActions.SET_PROFILE_INFO_SUCCESS: {
+      return {
+        ...state,
+        email: action.payload.email,
+        name: action.payload.name,
       }
     }
 
@@ -56,7 +68,8 @@ export function reducer(state = initialState, action: userActions.Actions): Stat
     }
 
     case userActions.LOGIN_FAIL:
-    case userActions.PROFILE_INFO_FAIL: {
+    case userActions.GET_PROFILE_INFO_FAIL:
+    case userActions.SET_PROFILE_INFO_FAIL: {
       return {
         ...state,
         error: action.payload,

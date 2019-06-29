@@ -76,7 +76,7 @@ export class GameComponent implements OnInit {
   private checkAlreadyJoined() {
     this.store.select(fromRoot.getUserProfileInfo).pipe(first()).subscribe(data => {
       if (!data) {
-        this.store.dispatch(new userActions.ProfileInfoAction());
+        this.store.dispatch(new userActions.GetProfileInfoAction());
         this.store.select(fromRoot.getUserProfileInfo).subscribe(me => {
           if (me) {
             this.alreadyJoined = this.gameInfo.users.filter(user => user.id === me.id).length > 0;

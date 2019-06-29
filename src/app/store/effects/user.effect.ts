@@ -59,16 +59,27 @@ export class UserEffects {
   );
 
   @Effect()
-  profileInfo$: Observable<Action> = this.actions$.pipe(
-    ofType(userActions.PROFILE_INFO),
+  getProfileInfo$: Observable<Action> = this.actions$.pipe(
+    ofType(userActions.GET_PROFILE_INFO),
     switchMap(() => {
       return this.userService.getUserProfile().pipe(
-        map((success) => new userActions.ProfileInfoSuccessAction(success)),
-        catchError((error) => of(new userActions.ProfileInfoFailAction(error)))
+        map((success) => new userActions.GetProfileInfoSuccessAction(success)),
+        catchError((error) => of(new userActions.GetProfileInfoFailAction(error)))
       );
     })
   );
 
+  @Effect()
+  setProfileInfo$: Observable<Action> = this.actions$.pipe(
+    ofType(userActions.SET_PROFILE_INFO),
+    map((action: userActions.SetProfileInfoAction) => action.payload),
+    switchMap((editedData) => {
+      return this.userService.editUserProfile(editedData).pipe(
+        map((success) => new userActions.SetProfileInfoSuccessAction(success)),
+        catchError((error) => of(new userActions.SetProfileInfoFailAction(error)))
+      );
+    })
+  );
 
 }
 

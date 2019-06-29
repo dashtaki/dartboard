@@ -15,9 +15,13 @@ export const JOIN_GAME = '[User] Join Game';
 export const JOIN_GAME_SUCCESS = '[User] Join Game Success';
 export const JOIN_GAME_FAIL = '[User] Join Game Fail';
 
-export const PROFILE_INFO = '[User] Profile Info';
-export const PROFILE_INFO_SUCCESS = '[User] Profile Info Success';
-export const PROFILE_INFO_FAIL = '[User] Profile Info Fail';
+export const GET_PROFILE_INFO = '[User] Get Profile Info';
+export const GET_PROFILE_INFO_SUCCESS = '[User] Get Profile Info Success';
+export const GET_PROFILE_INFO_FAIL = '[User] Get Profile Info Fail';
+
+export const SET_PROFILE_INFO = '[User] Set Profile Info';
+export const SET_PROFILE_INFO_SUCCESS = '[User] Set Profile Info Success';
+export const SET_PROFILE_INFO_FAIL = '[User] Set Profile Info Fail';
 
 export class LoginAction implements Action {
   readonly type = LOGIN;
@@ -89,23 +93,45 @@ export class JoinGameFailAction implements Action {
   }
 }
 
-export class ProfileInfoAction implements Action {
-  readonly type = PROFILE_INFO;
+export class GetProfileInfoAction implements Action {
+  readonly type = GET_PROFILE_INFO;
 }
 
-export class ProfileInfoSuccessAction implements Action {
-  readonly type = PROFILE_INFO_SUCCESS;
+export class GetProfileInfoSuccessAction implements Action {
+  readonly type = GET_PROFILE_INFO_SUCCESS;
 
   constructor(public payload: any) {
   }
 }
 
-export class ProfileInfoFailAction implements Action {
-  readonly type = PROFILE_INFO_FAIL;
+export class GetProfileInfoFailAction implements Action {
+  readonly type = GET_PROFILE_INFO_FAIL;
 
   constructor(public payload: any) {
   }
 }
+
+export class SetProfileInfoAction implements Action {
+  readonly type = SET_PROFILE_INFO;
+
+  constructor(public payload: any) {
+  }
+}
+
+export class SetProfileInfoSuccessAction implements Action {
+  readonly type = SET_PROFILE_INFO_SUCCESS;
+
+  constructor(public payload: any) {
+  }
+}
+
+export class SetProfileInfoFailAction implements Action {
+  readonly type = SET_PROFILE_INFO_FAIL;
+
+  constructor(public payload: any) {
+  }
+}
+
 
 export type Actions =
   LoginAction
@@ -118,7 +144,10 @@ export type Actions =
   | JoinGameAction
   | JoinGameSuccessAction
   | JoinGameFailAction
-  | ProfileInfoAction
-  | ProfileInfoSuccessAction
-  | ProfileInfoFailAction;
+  | GetProfileInfoAction
+  | GetProfileInfoSuccessAction
+  | GetProfileInfoFailAction
+  | SetProfileInfoAction
+  | SetProfileInfoSuccessAction
+  | SetProfileInfoFailAction;
 

@@ -24,6 +24,7 @@ export class AllUsersComponent implements OnInit {
    * ngOnInit life cycle hook
    */
   ngOnInit() {
+    this.users = [];
     this.utilityService.toggleLoadingSpinner('show');
     this.page = 1;
     this.guestService.getAllUsers(this.page).subscribe(data => {
