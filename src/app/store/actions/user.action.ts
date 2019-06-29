@@ -27,6 +27,10 @@ export const LEAVE_GAME = '[User] Leave Game';
 export const LEAVE_GAME_SUCCESS = '[User] Leave Game Success';
 export const LEAVE_GAME_FAIL = '[User] Leave Game Fail';
 
+export const INVITE_GAME = '[User] Invite Game';
+export const INVITE_GAME_SUCCESS = '[User] Invite Game Success';
+export const INVITE_GAME_FAIL = '[User] Invite Game Fail';
+
 export class LoginAction implements Action {
   readonly type = LOGIN;
 
@@ -157,6 +161,27 @@ export class LeaveGameFailAction implements Action {
   }
 }
 
+export class InviteGameAction implements Action {
+  readonly type = INVITE_GAME;
+
+  constructor(public payload: any) {
+  }
+}
+
+export class InviteGameSuccessAction implements Action {
+  readonly type = INVITE_GAME_SUCCESS;
+
+  constructor(public payload: any) {
+  }
+}
+
+export class InviteGameFailAction implements Action {
+  readonly type = INVITE_GAME_FAIL;
+
+  constructor(public payload: any) {
+  }
+}
+
 
 export type Actions =
   LoginAction
@@ -177,5 +202,8 @@ export type Actions =
   | SetProfileInfoFailAction
   | LeaveGameAction
   | LeaveGameSuccessAction
-  | LeaveGameFailAction;
+  | LeaveGameFailAction
+  | InviteGameAction
+  | InviteGameSuccessAction
+  | InviteGameFailAction;
 

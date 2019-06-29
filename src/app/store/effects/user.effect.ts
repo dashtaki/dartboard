@@ -105,6 +105,19 @@ export class UserEffects {
     })
   );
 
+  @Effect()
+  inviteGame$: Observable<Action> = this.actions$.pipe(
+    ofType(userActions.INVITE_GAME),
+    map((action: userActions.InviteGameAction) => action.payload),
+    switchMap((data) => {
+      return this.userService.inviteGame(data)
+        .pipe(
+          map((success) => new userActions.LeaveGameSuccessAction(success)),
+          catchError((error) => of(new userActions.LeaveGameFailAction(error)))
+        );
+    })
+  );
+
 }
 
 

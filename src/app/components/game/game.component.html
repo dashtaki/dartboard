@@ -22,4 +22,11 @@
   <button *ngIf="isUserLoggedIn && !alreadyJoined" class="btn btn-info btn-lg" (click)="joinGame()">Join</button>
 
   <button *ngIf="isUserLoggedIn && alreadyJoined" class="btn btn-info btn-lg" (click)="leaveGame()">Leave</button>
+
+  <ul>
+    <li *ngFor="let user of availableUsersToInvite">
+      {{user.name}}
+      <button class="btn btn-default" (click)="inviteUser(user.id)">Invite</button>
+    </li>
+  </ul>
 </section>

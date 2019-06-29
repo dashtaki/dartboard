@@ -20,6 +20,7 @@ export class GameComponent implements OnInit {
   public isUserLoggedIn: boolean;
   public gameId: number;
   public alreadyJoined: boolean;
+  public availableUsersToInvite: User[];
 
   constructor(private store: Store<fromRoot.State>,
               private route: ActivatedRoute,
@@ -41,6 +42,7 @@ export class GameComponent implements OnInit {
     };
     this.alreadyJoined = true;
     this.isUserLoggedIn = false;
+    this.availableUsersToInvite = [];
     this.store.select(fromRoot.isLoggedIn).subscribe(data => {
       if (data) this.isUserLoggedIn = data
     });
@@ -55,6 +57,7 @@ export class GameComponent implements OnInit {
           if (data) {
             this.gameInfo = data;
             this.checkAlreadyJoined();
+            this.getAvailableUsersToInvite();
             this.utilityService.toggleLoadingSpinner("hide");
           }
         });
@@ -91,5 +94,41 @@ export class GameComponent implements OnInit {
    */
   public leaveGame() {
     this.store.dispatch(new userActions.LeaveGameAction(this.gameId))
+  }
+
+  /**
+   * invite specific user
+   */
+  public inviteUser(userId: number) {
+    const data = {userId: userId, gameId: this.gameId};
+    this.store.dispatch(new userActions.InviteGameAction(data));
+    // TODO: make sure api is 200
+    this.availableUsersToInvite = this.availableUsersToInvite.filter(user => user.id !== userId);
+  }
+
+  /**
+   * get available users to invite
+   */
+  private getAvailableUsersToInvite() {
+    this.store.select(fromRoot.getAllUsers).pipe(first()).subscribe(data => {
+      if (data) {
+        this.availableUsersToInvite = this.filterUsers(data.data);
+      } else {
+        this.store.dispatch(new guestActions.AllUsersAction());
+        this.store.select(fromRoot.getAllUsers).subscribe(data => {
+          if (data) {
+            this.availableUsersToInvite = this.filterUsers(data.data);
+          }
+        })
+      }
+    });
+  }
+
+  /**
+   * filter users
+   * @param allUsers
+   */
+  private filterUsers(allUsers) {
+    return allUsers.filter(element => this.gameInfo.users.includes(element));
   }
 }

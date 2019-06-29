@@ -53,4 +53,11 @@ export class UserService {
   public leaveGame(gameId: number) {
     return this.http.delete(`/api/game/${gameId}/left`);
   }
+
+  public inviteGame(data: any): Observable<any> {
+    const requestBody = {
+      user_id: data.userId
+    };
+    return this.http.post<any>(`/api/game/${data.gameId}/invite`, requestBody);
+  }
 }
