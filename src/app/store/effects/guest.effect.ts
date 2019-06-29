@@ -38,6 +38,18 @@ export class GuestEffect {
     })
   );
 
+  @Effect()
+  allUsers$: Observable<Action> = this.actions$.pipe(
+    ofType(guestActions.ALL_USERS),
+    map((action: guestActions.AllUsersAction) => action.payload),
+    switchMap(pageNumber => {
+      return this.guestService.getAllUsers(pageNumber).pipe(
+        map((success) => new guestActions.AllUsersSuccessAction(success)),
+        catchError((error) => of(new guestActions.AllUsersFailAction(error)))
+      );
+    })
+  );
+
 }
 
 

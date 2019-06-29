@@ -8,6 +8,10 @@ export const GAME = '[Guest] Game';
 export const GAME_SUCCESS = '[Guest] Game Success';
 export const GAME_FAIL = '[Guest] Game Fail';
 
+export const ALL_USERS = '[Guest] All Users';
+export const ALL_USERS_SUCCESS = '[Guest] All Users Success';
+export const ALL_USERS_FAIL = '[Guest] All Users Fail';
+
 
 export class AllGamesAction implements Action {
   readonly type = ALL_GAMES;
@@ -51,10 +55,34 @@ export class GameFailAction implements Action {
   }
 }
 
+export class AllUsersAction implements Action {
+  readonly type = ALL_USERS;
+
+  constructor(public payload?: number) {
+  }
+}
+
+export class AllUsersSuccessAction implements Action {
+  readonly type = ALL_USERS_SUCCESS;
+
+  constructor(public payload: any) {
+  }
+}
+
+export class AllUsersFailAction implements Action {
+  readonly type = ALL_USERS_FAIL;
+
+  constructor(public payload: any) {
+  }
+}
+
 export type Actions =
   AllGamesAction
   | AllGamesSuccessAction
   | AllGamesFailAction
   | GameAction
   | GameSuccessAction
-  | GameFailAction;
+  | GameFailAction
+  | AllUsersAction
+  | AllUsersSuccessAction
+  | AllUsersFailAction;
