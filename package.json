@@ -21,6 +21,7 @@
     "@angular/router": "~8.0.0",
     "@ngrx/effects": "^8.0.1",
     "@ngrx/store": "^8.0.1",
+    "@ngrx/store-devtools": "^8.0.1",
     "bootstrap": "^4.3.1",
     "jquery": "^3.4.1",
     "ngx-pagination": "^4.0.0",
