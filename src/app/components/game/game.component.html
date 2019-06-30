@@ -35,15 +35,20 @@
       </div>
     </div>
     <div class="col-3">
-      <div class="card custom-card" *ngIf="availableUsersToInvite.length">
+      <div class="card custom-card">
         <div class="card-header custom-header">
           Users to invite
         </div>
-        <ul class="list-group list-group-flush">
+        <ul class="list-group list-group-flush" *ngIf="availableUsersToInvite.length">
           <li class="list-group-item d-flex align-items-center justify-content-between"
               *ngFor="let user of availableUsersToInvite">
             <label>{{user.name}}</label>
             <button class="btn btn-success" (click)="inviteUser(user.id)">Invite</button>
+          </li>
+        </ul>
+        <ul class="list-group list-group-flush" *ngIf="!availableUsersToInvite.length">
+          <li class="list-group-item d-flex align-items-center justify-content-between">
+            There is not any user!
           </li>
         </ul>
       </div>
@@ -80,7 +85,7 @@
           </div>
 
           <p>
-            <input type="submit" value="Create Game">
+            <input type="submit" value="Add Game Score">
           </p>
 
         </form>
