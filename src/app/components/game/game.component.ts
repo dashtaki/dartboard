@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Game} from '../../services/models/game';
 import {Store} from '@ngrx/store';
 import * as fromRoot from '../../store/reducers/index';
@@ -11,13 +11,14 @@ import * as userActions from '../../store/actions/user.action';
 import {first} from 'rxjs/operators';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Me} from '../../services/models/me.model';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-leader-board',
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.scss']
 })
-export class GameComponent implements OnInit {
+export class GameComponent implements OnInit, OnDestroy {
   public gameInfo: Game;
   public isUserLoggedIn: boolean;
   public gameId: number;
@@ -28,6 +29,7 @@ export class GameComponent implements OnInit {
   public addGameScoreForm: FormGroup;
   public updateGameForm: FormGroup;
   public me: Me;
+  private subscriptions: Subscription[];
 
   constructor(private store: Store<fromRoot.State>,
               private route: ActivatedRoute,
@@ -69,14 +71,16 @@ export class GameComponent implements OnInit {
       targetScore: ['', Validators.required]
     });
 
-    this.store.select(fromRoot.isLoggedIn).subscribe(data => {
+    let isLoggedInSubscription = this.store.select(fromRoot.isLoggedIn).subscribe(data => {
       if (data) {
         this.isUserLoggedIn = data
       }
     });
 
+    this.subscriptions.push(isLoggedInSubscription);
+
     this.utilityService.toggleLoadingSpinner('show');
-    this.route.params.subscribe(params => {
+    let paramSubscription = this.route.params.subscribe(params => {
       if (params['id']) {
         this.gameId = parseInt(params['id']);
         this.store.dispatch(new guestActions.GameAction(this.gameId));
@@ -90,7 +94,7 @@ export class GameComponent implements OnInit {
         });
       }
     });
-
+    this.subscriptions.push(paramSubscription);
   }
 
   /**
@@ -104,7 +108,7 @@ export class GameComponent implements OnInit {
    * check user already joined to game or not
    */
   private checkAlreadyJoined() {
-    this.store.select(fromRoot.getUserProfileInfo).pipe(first()).subscribe(data => {
+    let userProfileSubscription = this.store.select(fromRoot.getUserProfileInfo).pipe(first()).subscribe(data => {
       if (!data) {
         this.store.dispatch(new userActions.GetProfileInfoAction());
         this.store.select(fromRoot.getUserProfileInfo).subscribe(me => {
@@ -115,6 +119,7 @@ export class GameComponent implements OnInit {
         });
       }
     });
+    this.subscriptions.push(userProfileSubscription);
   }
 
   /**
@@ -139,18 +144,21 @@ export class GameComponent implements OnInit {
    * get available users to invite
    */
   private getAvailableUsersToInvite() {
-    this.store.select(fromRoot.getAllUsers).pipe(first()).subscribe(data => {
+    let getUsersSubscription = this.store.select(fromRoot.getAllUsers).pipe(first()).subscribe(data => {
       if (data) {
         this.availableUsersToInvite = this.filterUsers(data.data);
       } else {
         this.store.dispatch(new guestActions.AllUsersAction());
-        this.store.select(fromRoot.getAllUsers).subscribe(data => {
+        let usersSubscription = this.store.select(fromRoot.getAllUsers).subscribe(data => {
           if (data) {
             this.availableUsersToInvite = this.filterUsers(data.data);
           }
-        })
+        });
+        this.subscriptions.push(usersSubscription);
       }
     });
+    this.subscriptions.push(getUsersSubscription);
+    this.subscriptions.push(getUsersSubscription);
   }
 
   /**
@@ -225,6 +233,13 @@ export class GameComponent implements OnInit {
     // TODO: make sure api returned 200
     this.gameInfo.target_score = this.gameInfo.target_score + this.updateGameFormControls.targetScore.value;
     this.updateGameFormControls.targetScore.setValue(0);
-
   }
+
+  /**
+   * ngOnDestroy life cycle hook
+   */
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
+  }
+
 }
