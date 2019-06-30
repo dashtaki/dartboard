@@ -17,4 +17,15 @@ export class UtilityService {
     let userInfo = localStorage.getItem('userInfo');
     return !!userInfo;
   }
+
+  public showAlert(message: string) {
+    let alert = document.querySelector('#dart-alert');
+    if (alert) {
+      alert.innerHTML = message;
+      alert.classList.add('show');
+      setTimeout(() => {
+        alert.classList.remove('show');
+      }, 3000);
+    }
+  }
 }

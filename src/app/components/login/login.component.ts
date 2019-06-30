@@ -6,6 +6,7 @@ import {Store} from '@ngrx/store';
 import * as fromRoot from '../../store/reducers/index';
 import * as userActions from '../../store/actions/user.action';
 import {Subscription} from 'rxjs';
+import {UtilityService} from "../../services/utility.service";
 
 @Component({
   selector: 'app-login',
@@ -23,7 +24,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     private router: Router,
     private userService: UserService,
     private route: ActivatedRoute,
-    private store: Store<fromRoot.State>) {
+    private store: Store<fromRoot.State>,
+    private utilityService: UtilityService) {
   }
 
   /**
@@ -68,6 +70,12 @@ export class LoginComponent implements OnInit, OnDestroy {
         }
       }
     });
+
+    this.store.select(fromRoot.errorUser).subscribe(data => {
+      if (data) {
+        this.utilityService.showAlert(data);
+      }
+    })
   }
 
   /**

@@ -16,6 +16,19 @@
   z-index: -1;
 }
 
+#dart-alert {
+  display: none;
+  width: 50%;
+  left: 51%;
+  bottom: 2rem;
+  position: fixed;
+  transform: translateX(-50%);
+
+  &.show {
+    display: block;
+  }
+}
+
 /* ------------------ Spinner ------------------ */
 #loading-spinner {
   background-color: #f1eaea;
