@@ -1,52 +1,91 @@
-<section>
-  <div>Score: {{gameInfo.targetScore}}</div>
-  <div>Creation Date: {{gameInfo.createdAt}}</div>
-  <div>Last Update Date: {{gameInfo.updatedAt}}</div>
-  <ul>Users:
-    <li *ngFor="let user of gameInfo.users">
-      <div>Name: {{user.name}}</div>
-      <div>Score: {{user.score}}</div>
-      <button class="btn btn-danger btn-lg" (click)="kickUser(user.id)">Kick</button>
-    </li>
-  </ul>
-  <div *ngIf="gameInfo.winnerId">
-    Winner:
-    <ul>
-      <li>
-        Winner Name: {{gameInfo.winner.name}}
-      </li>
-      <li>
-        Winner Score: {{gameInfo.winner.score}}
-      </li>
-    </ul>
-  </div>
-  <button *ngIf="isUserLoggedIn && !alreadyJoined" class="btn btn-info btn-lg" (click)="joinGame()">Join</button>
+<section class="container-fluid">
+  <div class="row">
+    <div class="col-3">
 
-  <button *ngIf="isUserLoggedIn && alreadyJoined" class="btn btn-info btn-lg" (click)="leaveGame()">Leave</button>
-
-  <h3>Users to invite:</h3>
-  <ul>
-    <li *ngFor="let user of availableUsersToInvite">
-      {{user.name}}
-      <button class="btn btn-default btn-lg" (click)="inviteUser(user.id)">Invite</button>
-    </li>
-  </ul>
-
-  <div class="add-score">
-    <h2 class="add-score-header">Create Game</h2>
-    <form [formGroup]="addGameScoreForm" class="add-score-container" (ngSubmit)="addGameScore()">
-
-      <p [ngClass]="{ 'has-error': isSubmitted && formControls.score.errors }">
-        <input type="number" placeholder="Score" formControlName="score">
-      </p>
-      <div *ngIf="isSubmitted && formControls.score.errors" class="help-block">
-        <div *ngIf="formControls.score.errors.required">Score is required</div>
+      <div class="card custom-card">
+        <div class="card-header custom-header">Game Info</div>
+        <div class="card-body">
+          <div><h6 class="card-title d-inline-block mr-2">Score: </h6>{{gameInfo.target_score}}</div>
+          <div><h6 class="card-title d-inline-block mr-2`">Creation Date:</h6>{{gameInfo.created_at}}</div>
+          <div><h6 class="card-title d-inline-block mr-2">Last Update Date:</h6>{{gameInfo.updated_at}}</div>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item d-flex justify-content-between align-items-center"
+              *ngFor="let user of gameInfo.users">
+           <span>
+              <span class="mr-2"><strong>Name:</strong> {{user.name}}</span>
+            <span><strong>Score:</strong> {{user.score}}</span>
+           </span>
+            <button class="btn btn-danger" *ngIf="me.id !== user.id && isUserLoggedIn && !gameInfo.winner_id"
+                    (click)="kickUser(user.id)">Kick
+            </button>
+          </li>
+          <li class="list-group-item" *ngIf="gameInfo.winner_id">
+             <span>
+              <span class="mr-2"><strong>Winner:</strong>{{gameInfo.winner.name}}</span>
+              <span><strong>Score:</strong>{{gameInfo.winner.score}}</span>
+             </span>
+          </li>
+        </ul>
+        <div class="card-body">
+          <a href="#" *ngIf="isUserLoggedIn && !alreadyJoined && !gameInfo.winner_id" class="card-link"
+             (click)="joinGame()">Join the Game</a>
+          <a href="#" *ngIf="isUserLoggedIn && alreadyJoined && !gameInfo.winner_id" class="card-link"
+             (click)="leaveGame()">Leave the Game</a>
+        </div>
       </div>
+    </div>
+    <div class="col-3">
+      <div class="card custom-card" *ngIf="availableUsersToInvite.length">
+        <div class="card-header custom-header">
+          Users to invite
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item d-flex align-items-center justify-content-between"
+              *ngFor="let user of availableUsersToInvite">
+            <label>{{user.name}}</label>
+            <button class="btn btn-success" (click)="inviteUser(user.id)">Invite</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-3">
+      <div class="custom-form-wrapper">
+        <h2 class="custom-form-header">Update Game</h2>
+        <form [formGroup]="updateGameForm" class="custom-form-container" (ngSubmit)="updateGame()">
 
-      <p>
-        <input type="submit" value="Create Game">
-      </p>
+          <p [ngClass]="{ 'has-error': isAddGameScoreFormSubmitted && addGameScoreFormControls.targetScore.errors }">
+            <input type="number" placeholder="Target Score" formControlName="targetScore">
+          </p>
+          <div *ngIf="isAddGameScoreFormSubmitted && addGameScoreFormControls.targetScore.errors" class="help-block">
+            <div *ngIf="addGameScoreFormControls.targetScore.errors.required">Target Score is required</div>
+          </div>
 
-    </form>
+          <p>
+            <input type="submit" value="Update Game">
+          </p>
+
+        </form>
+      </div>
+    </div>
+    <div class="col-3">
+      <div class="custom-form-wrapper">
+        <h2 class="custom-form-header">Add Game Score</h2>
+        <form [formGroup]="addGameScoreForm" class="custom-form-container" (ngSubmit)="addGameScore()">
+
+          <p [ngClass]="{ 'has-error': isAddGameScoreFormSubmitted && addGameScoreFormControls.score.errors }">
+            <input type="number" placeholder="Score" formControlName="score">
+          </p>
+          <div *ngIf="isAddGameScoreFormSubmitted && addGameScoreFormControls.score.errors" class="help-block">
+            <div *ngIf="addGameScoreFormControls.score.errors.required">Score is required</div>
+          </div>
+
+          <p>
+            <input type="submit" value="Create Game">
+          </p>
+
+        </form>
+      </div>
+    </div>
   </div>
 </section>
