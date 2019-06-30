@@ -100,4 +100,4 @@ export const getUserProfileInfo = (state: State) => state.me;
 export const getUserEmail = (state: State) => state.email;
 export const getUserName = (state: State) => state.name;
 export const isFetching = (state: State) => state.isFetching;
-export const error = (state: State) => state.error;
+export const getError = (state: State) => state.error;

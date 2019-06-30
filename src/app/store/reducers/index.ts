@@ -26,7 +26,7 @@ export const getUserProfileInfo = createSelector(getUserState, fromUser.getUserP
 export const getUserName = createSelector(getUserState, fromUser.getUserName);
 export const isFetchingUser = createSelector(getUserState, fromUser.isFetching);
 export const isLoggedIn = createSelector(getUserState, fromUser.isLoggedIn);
-export const errorUser = createSelector(getUserState, fromUser.error);
+export const errorUser = createSelector(getUserState, fromUser.getError);
 
 /*  Guest state selectors  */
 export const getGuestState = (state: State) => state.guest;
@@ -35,4 +35,4 @@ export const getAllUsers = createSelector(getGuestState, fromGuest.getAllUsers);
 export const getRegisterData = createSelector(getGuestState, fromGuest.getRegisterData);
 export const getGame = createSelector(getGuestState, fromGuest.getGame);
 export const isFetchingGuest = createSelector(getGuestState, fromGuest.isFetching);
-export const errorGuest = createSelector(getGuestState, fromGuest.error);
+export const errorGuest = createSelector(getGuestState, fromGuest.getError);

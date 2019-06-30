@@ -90,4 +90,4 @@ export const getAllUsers = (state: State) => state.allUsers;
 export const getRegisterData = (state: State) => state.registerData;
 export const getGame = (state: State) => state.game;
 export const isFetching = (state: State) => state.isFetching;
-export const error = (state: State) => state.error;
+export const getError = (state: State) => state.error;
