@@ -1,0 +1,20 @@
+.custom-card-desk {
+  margin: 0;
+
+  .card-header {
+    background: #0c4d81;
+    padding: 1rem;
+    font-size: 1.4em;
+    font-weight: normal;
+    text-align: center;
+    text-transform: uppercase;
+    color: #fff;
+    border-radius: 0 !important;
+  }
+
+  .card {
+    width: 350px;
+    flex: initial;
+    margin: 1rem;
+  }
+}

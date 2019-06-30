@@ -10,10 +10,10 @@
     text-align: center;
     text-transform: uppercase;
     color: #fff;
-    border-radius: 0;
+    border-radius: 0 !important;
   }
 
-  .list-group-item {
+  .list-group-item, .card-body {
     background-color: #ebebeb;
   }
 }

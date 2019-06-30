@@ -1,17 +1,27 @@
 <ng-container *ngIf="users.length">
-  <ul>
-    <li *ngFor="let user of users | paginate: { id: 'foo',
+  <div class="container-fluid">
+    <div class="row">
+      <div class="card-deck custom-card-desk">
+        <div class="card" *ngFor="let user of users | paginate: { id: 'foo',
                                                       itemsPerPage: itemsPerPage,
                                                       currentPage: currentPage,
                                                       totalItems: total }">
-      <div>Name: {{user.name}}</div>
-      <div>Email: {{user.email}}</div>
-      <div>Created at: {{user.created_at}}</div>
-      <div>Updated at: {{user.updated_at}}</div>
-      <div>Score: {{user.score}}</div>
-
-    </li>
-  </ul>
+          <div class="card-header">User #{{user.id}}</div>
+          <div class="card-body">
+            <div><h6 class="card-title d-inline-block mr-2">Name: </h6>{{user.name}}</div>
+            <div><h6 class="card-title d-inline-block mr-2">Email: </h6>{{user.email}}</div>
+            <div><h6 class="card-title d-inline-block mr-2">Creation Date: </h6>{{user.created_at}}</div>
+            <div><h6 class="card-title d-inline-block mr-2">Last Update Date: </h6>{{user.updated_at}}</div>
+          </div>
+          <div class="card-footer">
+            <small class="text-muted">
+              <h6 class="card-title d-inline-block mr-2">Name: </h6><span class="mr-1">{{user.name}}</span>
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
 </ng-container>
