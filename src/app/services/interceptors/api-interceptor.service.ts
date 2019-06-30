@@ -2,11 +2,12 @@ import {Injectable} from '@angular/core';
 import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {catchError} from 'rxjs/operators';
+import {Router} from '@angular/router';
 
 @Injectable()
 export class ApiInterceptor implements HttpInterceptor {
 
-  constructor() {
+  constructor(private router: Router) {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -18,7 +19,7 @@ export class ApiInterceptor implements HttpInterceptor {
 
     return next.handle(authReq).pipe(catchError(err => {
       if (err.status === 401) {
-        console.log('should navigate to login page ....')
+        this.router.navigate(['./login']);
       }
 
       const error = err.error.message || err.statusText;
