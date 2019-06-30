@@ -11,6 +11,10 @@ export const CREATE_GAME = '[User] Create Game';
 export const CREATE_GAME_SUCCESS = '[User] Create Game Success';
 export const CREATE_GAME_FAIL = '[User] Create Game Fail';
 
+export const UPDATE_GAME = '[User] Update Game';
+export const UPDATE_GAME_SUCCESS = '[User] Update Game Success';
+export const UPDATE_GAME_FAIL = '[User] Update Game Fail';
+
 export const JOIN_GAME = '[User] Join Game';
 export const JOIN_GAME_SUCCESS = '[User] Join Game Success';
 export const JOIN_GAME_FAIL = '[User] Join Game Fail';
@@ -83,6 +87,27 @@ export class CreateGameSuccessAction implements Action {
 
 export class CreateGameFailAction implements Action {
   readonly type = CREATE_GAME_FAIL;
+
+  constructor(public payload: any) {
+  }
+}
+
+export class UpdateGameAction implements Action {
+  readonly type = UPDATE_GAME;
+
+  constructor(public payload: any) {
+  }
+}
+
+export class UpdateGameSuccessAction implements Action {
+  readonly type = UPDATE_GAME_SUCCESS;
+
+  constructor(public payload: any) {
+  }
+}
+
+export class UpdateGameFailAction implements Action {
+  readonly type = UPDATE_GAME_FAIL;
 
   constructor(public payload: any) {
   }
@@ -261,5 +286,8 @@ export type Actions =
   | KickGameFailAction
   | AddGameScoreAction
   | AddGameScoreSuccessAction
-  | AddGameScoreFailAction;
+  | AddGameScoreFailAction
+  | UpdateGameAction
+  | UpdateGameSuccessAction
+  | UpdateGameFailAction;
 

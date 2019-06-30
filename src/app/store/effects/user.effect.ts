@@ -41,6 +41,18 @@ export class UserEffects {
   );
 
   @Effect()
+  updateGame$: Observable<Action> = this.actions$.pipe(
+    ofType(userActions.UPDATE_GAME),
+    map((action: userActions.UpdateGameAction) => action.payload),
+    switchMap(targetScore => {
+      return this.userService.updateGame(targetScore).pipe(
+        map((success) => new userActions.UpdateGameSuccessAction(success)),
+        catchError((error) => of(new userActions.UpdateGameFailAction(error)))
+      );
+    })
+  );
+
+  @Effect()
   joinGame$: Observable<Action> = this.actions$.pipe(
     ofType(userActions.JOIN_GAME),
     map((action: userActions.JoinGameAction) => action.payload),
@@ -112,8 +124,8 @@ export class UserEffects {
     switchMap((data) => {
       return this.userService.inviteGame(data)
         .pipe(
-          map((success) => new userActions.LeaveGameSuccessAction(success)),
-          catchError((error) => of(new userActions.LeaveGameFailAction(error)))
+          map((success) => new userActions.InviteGameSuccessAction(success)),
+          catchError((error) => of(new userActions.InviteGameFailAction(error)))
         );
     })
   );

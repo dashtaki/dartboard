@@ -10,6 +10,7 @@ import {User} from '../../services/models/user.model';
 import * as userActions from '../../store/actions/user.action';
 import {first} from 'rxjs/operators';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Me} from '../../services/models/me.model';
 
 @Component({
   selector: 'app-leader-board',
@@ -22,8 +23,11 @@ export class GameComponent implements OnInit {
   public gameId: number;
   public alreadyJoined: boolean;
   public availableUsersToInvite: User[];
-  public isSubmitted: boolean;
+  public isAddGameScoreFormSubmitted: boolean;
+  public isUpdateGameFormSubmitted: boolean;
   public addGameScoreForm: FormGroup;
+  public updateGameForm: FormGroup;
+  public me: Me;
 
   constructor(private store: Store<fromRoot.State>,
               private route: ActivatedRoute,
@@ -36,20 +40,33 @@ export class GameComponent implements OnInit {
    */
   ngOnInit() {
     this.gameInfo = new class implements Game {
-      createdAt: Date;
+      created_at: Date;
       id: number;
-      targetScore: number;
-      updatedAt: Date;
+      target_score: number;
+      updated_at: Date;
       users: User[];
       winner: Winner;
-      winnerId: number;
+      winner_id: number;
+    };
+    this.me = new class implements Me {
+      created_at: Date;
+      email: string;
+      email_verified_at: any;
+      id: number;
+      name: string;
+      updated_at: Date;
     };
     this.alreadyJoined = true;
     this.isUserLoggedIn = false;
     this.availableUsersToInvite = [];
-    this.isSubmitted = false;
+    this.isAddGameScoreFormSubmitted = false;
+    this.isUpdateGameFormSubmitted = false;
     this.addGameScoreForm = this.formBuilder.group({
       score: ['', Validators.required]
+    });
+
+    this.updateGameForm = this.formBuilder.group({
+      targetScore: ['', Validators.required]
     });
 
     this.store.select(fromRoot.isLoggedIn).subscribe(data => {
@@ -57,7 +74,6 @@ export class GameComponent implements OnInit {
         this.isUserLoggedIn = data
       }
     });
-
 
     this.utilityService.toggleLoadingSpinner('show');
     this.route.params.subscribe(params => {
@@ -93,6 +109,7 @@ export class GameComponent implements OnInit {
         this.store.dispatch(new userActions.GetProfileInfoAction());
         this.store.select(fromRoot.getUserProfileInfo).subscribe(me => {
           if (me) {
+            this.me = me;
             this.alreadyJoined = this.gameInfo.users.filter(user => user.id === me.id).length > 0;
           }
         });
@@ -114,6 +131,7 @@ export class GameComponent implements OnInit {
     const data = {userId: userId, gameId: this.gameId};
     this.store.dispatch(new userActions.InviteGameAction(data));
     // TODO: make sure api is 200
+    this.gameInfo.users.push(this.availableUsersToInvite.find(user => user.id === userId))
     this.availableUsersToInvite = this.availableUsersToInvite.filter(user => user.id !== userId);
   }
 
@@ -140,7 +158,14 @@ export class GameComponent implements OnInit {
    * @param allUsers
    */
   private filterUsers(allUsers: User[]) {
-    return allUsers.filter(element => this.gameInfo.users.includes(element));
+    let arr: User[] = [];
+    allUsers.forEach(user => {
+      const result = this.gameInfo.users.find(gameUser => gameUser.id === user.id)
+      if (!result) {
+        arr.push(user);
+      }
+    });
+    return arr;
   }
 
   /**
@@ -151,24 +176,55 @@ export class GameComponent implements OnInit {
     const data = {userId: userId, gameId: this.gameId};
     this.store.dispatch(new userActions.KickGameAction(data));
     // TODO: make sure api is 200
+    this.availableUsersToInvite.push(this.gameInfo.users.find(user => user.id === userId))
     this.gameInfo.users = this.gameInfo.users.filter(user => user.id !== userId);
+
   }
 
   /**
-   * get login form controls
+   * get add game score form controls
    */
-  get formControls() {
+  get addGameScoreFormControls() {
     return this.addGameScoreForm.controls;
+  }
+
+  /**
+   * get add game score form controls
+   */
+  get updateGameFormControls() {
+    return this.updateGameForm.controls;
   }
 
   /**
    * add game score
    */
   public addGameScore() {
-    const data = {score: this.formControls.score.value, gameId: this.gameId};
+    this.isAddGameScoreFormSubmitted = true;
+    if (this.addGameScoreForm.invalid) {
+      return;
+    }
+
+    const data = {score: this.addGameScoreFormControls.score.value, gameId: this.gameId};
     this.store.dispatch(new userActions.AddGameScoreAction(data));
     // TODO: make sure api returned 200
-    this.gameInfo.targetScore = this.gameInfo.targetScore + this.formControls.score.value;
-    this.formControls.score.setValue(0);
+    this.gameInfo.target_score = this.gameInfo.target_score + this.addGameScoreFormControls.score.value;
+    this.addGameScoreFormControls.score.setValue(0);
+  }
+
+  /**
+   * update game
+   */
+  public updateGame() {
+    this.isUpdateGameFormSubmitted = true;
+    if (this.updateGameForm.invalid) {
+      return;
+    }
+
+    const data = {targetScore: this.updateGameFormControls.targetScore.value, gameId: this.gameId};
+    this.store.dispatch(new userActions.UpdateGameAction(data));
+    // TODO: make sure api returned 200
+    this.gameInfo.target_score = this.gameInfo.target_score + this.updateGameFormControls.targetScore.value;
+    this.updateGameFormControls.targetScore.setValue(0);
+
   }
 }

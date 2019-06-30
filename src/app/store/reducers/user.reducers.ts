@@ -31,7 +31,8 @@ export function reducer(state = initialState, action: userActions.Actions): Stat
     case userActions.LEAVE_GAME:
     case userActions.INVITE_GAME:
     case userActions.KICK_GAME:
-    case userActions.ADD_GAME_SCORE: {
+    case userActions.ADD_GAME_SCORE:
+    case userActions.UPDATE_GAME: {
       return {
         ...state
       };
@@ -77,7 +78,8 @@ export function reducer(state = initialState, action: userActions.Actions): Stat
     case userActions.LEAVE_GAME_FAIL:
     case userActions.INVITE_GAME_FAIL:
     case userActions.KICK_GAME_FAIL:
-    case userActions.ADD_GAME_SCORE_FAIL: {
+    case userActions.ADD_GAME_SCORE_FAIL:
+    case userActions.UPDATE_GAME_FAIL: {
       return {
         ...state,
         error: action.payload,
@@ -88,7 +90,6 @@ export function reducer(state = initialState, action: userActions.Actions): Stat
     default: {
       return state;
     }
-      ;
 
   }
 }

@@ -74,4 +74,11 @@ export class UserService {
     };
     return this.http.post(`/api/game/${data.gameId}/score`, requestBody);
   }
+
+  public updateGame(data: any): Observable<any> {
+    const requestBody = {
+      target_score: data.targetScore
+    };
+    return this.http.put(`/api/game/${data.gameId}`, requestBody);
+  }
 }
