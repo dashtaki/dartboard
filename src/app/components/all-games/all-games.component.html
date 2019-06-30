@@ -1,18 +1,30 @@
 <ng-container *ngIf="games.length">
-  <ul>
-    <li *ngFor="let game of games | paginate: { id: 'foo',
+  <div class="container-fluid">
+    <div class="row">
+      <div class="card-deck custom-card-desk">
+        <div class="card" *ngFor="let game of games | paginate: { id: 'foo',
                                                       itemsPerPage: itemsPerPage,
                                                       currentPage: currentPage,
                                                       totalItems: total }">
-      <div>Creation date: {{game.created_at}}</div>
-      <div>Last update date: {{game.updated_at}}</div>
-      <div>Target Score: {{game.target_score}}</div>
-      <div *ngIf="game.winner">Winner Name: {{game.winner.name}}</div>
-      <div *ngIf="game.winner">Winner Score: {{game.winner.score}}</div>
-      <a routerLink="/game/{{game.id}}">Details</a>
-    </li>
-
-  </ul>
+          <div class="card-header">Game #{{game.id}}</div>
+          <div class="card-body">
+            <div><h6 class="card-title d-inline-block mr-2">Target Score: </h6>{{game.target_score}}</div>
+            <div><h6 class="card-title d-inline-block mr-2">Creation Date: </h6>{{game.created_at}}</div>
+            <div><h6 class="card-title d-inline-block mr-2">Last Update Date: </h6>{{game.updated_at}}</div>
+            <div *ngIf="game.winner"><h6 class="card-title d-inline-block mr-2">Winner Name: </h6>{{game.winner.name}}
+            </div>
+            <div *ngIf="game.winner"><h6 class="card-title d-inline-block mr-2">Winner Score: </h6>{{game.winner.score}}
+            </div>
+          </div>
+          <div class="card-footer">
+            <small class="text-muted">
+              <a routerLink="/game/{{game.id}}">Details</a>
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
 </ng-container>
