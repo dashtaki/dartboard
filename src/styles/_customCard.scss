@@ -1,0 +1,19 @@
+.custom-card {
+  top: 1rem;
+  width: 400px;
+
+  .card-header {
+    background: #0c4d81;
+    padding: 1rem;
+    font-size: 1.4em;
+    font-weight: normal;
+    text-align: center;
+    text-transform: uppercase;
+    color: #fff;
+    border-radius: 0;
+  }
+
+  .list-group-item {
+    background-color: #ebebeb;
+  }
+}
