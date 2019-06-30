@@ -1,7 +1,7 @@
 <div class="container">
-  <div class="profile">
-    <h2 class="profile-header">Profile Information</h2>
-    <form [formGroup]="profileForm" class="profile-container" (ngSubmit)="editProfile()">
+  <div class="custom-form-wrapper">
+    <h2 class="custom-form-header">Profile Information</h2>
+    <form [formGroup]="profileForm" class="custom-form-container" (ngSubmit)="editProfile()">
 
       <div *ngIf="!enableEdit" class="user-info-wrapper">
         <div class="mb-2"><strong>Name: </strong>{{userProfileData.name}}</div>

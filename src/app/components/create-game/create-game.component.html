@@ -1,7 +1,7 @@
 <div class="container">
-  <div class="create-game">
-    <h2 class="create-game-header">Create Game</h2>
-    <form [formGroup]="createGameForm" class="create-game-container" (ngSubmit)="createGame()">
+  <div class="custom-form-wrapper">
+    <h2 class="custom-form-header">Create Game</h2>
+    <form [formGroup]="createGameForm" class="custom-form-container" (ngSubmit)="createGame()">
 
       <p [ngClass]="{ 'has-error': isSubmitted && formControls.targetScore.errors }">
         <input type="text" placeholder="Target Score" formControlName="targetScore">
