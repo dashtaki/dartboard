@@ -1,20 +1,22 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {UserService} from '../../services/user/user.service';
 import {Store} from '@ngrx/store';
 import * as fromRoot from '../../store/reducers/index';
 import * as userActions from '../../store/actions/user.action';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   public loginForm: FormGroup;
   public isSubmitted: boolean;
   public returnUrl: string;
+  private subscription: Subscription;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -58,7 +60,7 @@ export class LoginComponent implements OnInit {
       password: this.formControls.password.value
     }));
 
-    this.store.select(fromRoot.getLoginData).subscribe(userData => {
+    this.subscription = this.store.select(fromRoot.getLoginData).subscribe(userData => {
       if (userData) {
         if (userData.access_token) {
           localStorage.setItem('userInfo', JSON.stringify(userData));
@@ -67,5 +69,13 @@ export class LoginComponent implements OnInit {
       }
     });
   }
+
+  /**
+   * ngOnDestroy life cycle hook
+   */
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
 
 }
