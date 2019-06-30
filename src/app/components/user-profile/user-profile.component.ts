@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../../services/user/user.service';
 import {Router} from '@angular/router';
@@ -7,18 +7,20 @@ import {UtilityService} from '../../services/utility.service';
 import {Store} from '@ngrx/store';
 import * as fromRoot from '../../store/reducers/index';
 import * as userActions from '../../store/actions/user.action';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.scss']
 })
-export class UserProfileComponent implements OnInit {
+export class UserProfileComponent implements OnInit, OnDestroy {
   public profileForm: FormGroup;
   public isSubmitted: boolean;
   public enableEdit: boolean;
   public toggleEditBtnText: string;
   public userProfileData: Me;
+  private subscriptions: Subscription[];
 
   constructor(private formBuilder: FormBuilder,
               private userService: UserService,
@@ -57,7 +59,7 @@ export class UserProfileComponent implements OnInit {
    */
   private fillFormControls() {
     this.store.dispatch(new userActions.GetProfileInfoAction());
-    this.store.select(fromRoot.getUserProfileInfo).subscribe(data => {
+    let userProfileSubscription = this.store.select(fromRoot.getUserProfileInfo).subscribe(data => {
       if (data) {
         this.userProfileData = data;
         this.formControls.name.setValue(data.name);
@@ -65,6 +67,8 @@ export class UserProfileComponent implements OnInit {
         this.utilityService.toggleLoadingSpinner('hide');
       }
     });
+
+    this.subscriptions.push(userProfileSubscription);
   }
 
   /**
@@ -92,7 +96,7 @@ export class UserProfileComponent implements OnInit {
 
     this.utilityService.toggleLoadingSpinner('show');
     this.store.dispatch(new userActions.SetProfileInfoAction(meRequestBody));
-    this.store.select(fromRoot.getUserProfileInfo).subscribe(userInfo => {
+    let userProfileSubscription = this.store.select(fromRoot.getUserProfileInfo).subscribe(userInfo => {
       if (userInfo) {
         this.userProfileData = userInfo;
         this.userProfileData.email_verified_at = userInfo.email_verified_at ? userInfo.email_verified_at : 'Not Verified';
@@ -102,7 +106,7 @@ export class UserProfileComponent implements OnInit {
         this.toggleEditing();
       }
     }, () => this.router.navigate(['./login']));
-
+    this.subscriptions.push(userProfileSubscription)
   }
 
   /**
@@ -111,5 +115,12 @@ export class UserProfileComponent implements OnInit {
   public toggleEditing() {
     this.enableEdit = !this.enableEdit;
     this.toggleEditBtnText = this.enableEdit ? 'Cancel' : 'Edit';
+  }
+
+  /**
+   * ngOnDestroy life cycle hook
+   */
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 }
