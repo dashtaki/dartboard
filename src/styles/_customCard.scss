@@ -13,6 +13,11 @@
     border-radius: 0 !important;
   }
 
+  .card-body .card-link.disabled {
+    pointer-events: none;
+    color: lightgray;
+  }
+
   .list-group-item, .card-body {
     background-color: #ebebeb;
   }

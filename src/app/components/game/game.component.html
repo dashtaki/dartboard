@@ -30,10 +30,13 @@
           </li>
         </ul>
         <div class="card-body" *ngIf="isUserLoggedIn && !gameInfo.winner_id">
-          <a href="javascript:void(0);" *ngIf="isUserLoggedIn && !alreadyJoined && !gameInfo.winner_id"
+          <a href="javascript:void(0);" [ngClass]="{'disabled': disableJoinBtn}"
+             *ngIf="isUserLoggedIn && !alreadyJoined && !gameInfo.winner_id"
              class="card-link"
              (click)="joinGame()">Join the Game</a>
-          <a href="javascript:void(0);" *ngIf="isUserLoggedIn && alreadyJoined && !gameInfo.winner_id" class="card-link"
+          <a href="javascript:void(0);" [ngClass]="{'disabled': disableLeaveBtn}"
+             *ngIf="isUserLoggedIn && alreadyJoined && !gameInfo.winner_id"
+             class="card-link"
              (click)="leaveGame()">Leave the Game</a>
         </div>
       </div>

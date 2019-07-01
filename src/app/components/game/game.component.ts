@@ -30,6 +30,8 @@ export class GameComponent implements OnInit, OnDestroy {
   public updateGameForm: FormGroup;
   public me: Me;
   private subscriptions: Subscription[];
+  public disableJoinBtn: boolean;
+  public disableLeaveBtn: boolean;
 
   constructor(private store: Store<fromRoot.State>,
               private route: ActivatedRoute,
@@ -64,6 +66,9 @@ export class GameComponent implements OnInit, OnDestroy {
     this.availableUsersToInvite = [];
     this.isAddGameScoreFormSubmitted = false;
     this.isUpdateGameFormSubmitted = false;
+    this.disableJoinBtn = false;
+    this.disableLeaveBtn = false;
+
     this.addGameScoreForm = this.formBuilder.group({
       score: ['', Validators.required]
     });
@@ -102,8 +107,10 @@ export class GameComponent implements OnInit, OnDestroy {
    * join the game
    */
   public joinGame() {
+    this.disableJoinBtn = true;
     this.store.dispatch(new userActions.JoinGameAction(this.gameId));
     this.store.select(fromRoot.joined).subscribe(joined => {
+      this.disableJoinBtn = false;
       if (joined) {
         this.alreadyJoined = true;
       }
@@ -136,7 +143,14 @@ export class GameComponent implements OnInit, OnDestroy {
    * leave the game
    */
   public leaveGame() {
+    this.disableLeaveBtn = true;
     this.store.dispatch(new userActions.LeaveGameAction(this.gameId));
+    this.store.select(fromRoot.leaved).subscribe(leaved => {
+      this.disableLeaveBtn = false;
+      if (leaved) {
+        this.alreadyJoined = false;
+      }
+    })
   }
 
   /**
@@ -145,9 +159,14 @@ export class GameComponent implements OnInit, OnDestroy {
   public inviteUser(userId: number) {
     const data = {userId: userId, gameId: this.gameId};
     this.store.dispatch(new userActions.InviteGameAction(data));
-    // TODO: make sure api is 200
-    this.gameInfo.users.push(this.availableUsersToInvite.find(user => user.id === userId))
-    this.availableUsersToInvite = this.availableUsersToInvite.filter(user => user.id !== userId);
+    let inviteSubscription = this.store.select(fromRoot.invited).subscribe(invited => {
+      if (invited) {
+        this.gameInfo.users.push(this.availableUsersToInvite.find(user => user.id === userId));
+        this.availableUsersToInvite = this.availableUsersToInvite.filter(user => user.id !== userId);
+      }
+    });
+
+    this.subscriptions.push(inviteSubscription);
   }
 
   /**
@@ -193,10 +212,14 @@ export class GameComponent implements OnInit, OnDestroy {
   public kickUser(userId: number) {
     const data = {userId: userId, gameId: this.gameId};
     this.store.dispatch(new userActions.KickGameAction(data));
-    // TODO: make sure api is 200
-    this.availableUsersToInvite.push(this.gameInfo.users.find(user => user.id === userId))
-    this.gameInfo.users = this.gameInfo.users.filter(user => user.id !== userId);
+    let kickSubscription = this.store.select(fromRoot.kicked).subscribe(kicked => {
+      if (kicked) {
+        this.availableUsersToInvite.push(this.gameInfo.users.find(user => user.id === userId));
+        this.gameInfo.users = this.gameInfo.users.filter(user => user.id !== userId);
+      }
+    });
 
+    this.subscriptions.push(kickSubscription);
   }
 
   /**
