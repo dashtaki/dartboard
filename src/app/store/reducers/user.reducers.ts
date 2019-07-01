@@ -9,6 +9,9 @@ export interface State {
   email: string;
   error: any;
   joined: boolean;
+  invited: boolean;
+  kicked: boolean;
+  leaved: boolean;
   isFetching: boolean;
 }
 
@@ -20,6 +23,9 @@ const initialState: State = {
   email: '',
   error: '',
   joined: false,
+  kicked: false,
+  invited: false,
+  leaved: false,
   isFetching: true
 };
 
@@ -76,10 +82,41 @@ export function reducer(state = initialState, action: userActions.Actions): Stat
       }
     }
 
+    case userActions.INVITE_GAME_SUCCESS: {
+      return {
+        ...state,
+        invited: true,
+        isFetching: false
+      }
+    }
+
+    case userActions.LEAVE_GAME_SUCCESS: {
+      return {
+        ...state,
+        leaved: true,
+        isFetching: false
+      }
+    }
+
+    case userActions.KICK_GAME_SUCCESS: {
+      return {
+        ...state,
+        kicked: true,
+        isFetching: false
+      }
+    }
+
     case userActions.AUTHENTICATE: {
       return {
         ...state,
         isLoggedIn: action.payload
+      };
+    }
+
+    case userActions.UPDATE_USER_NAME: {
+      return {
+        ...state,
+        name: action.payload
       };
     }
 
@@ -113,4 +150,7 @@ export const getUserEmail = (state: State) => state.email;
 export const getUserName = (state: State) => state.name;
 export const isFetching = (state: State) => state.isFetching;
 export const joined = (state: State) => state.joined;
+export const invited = (state: State) => state.invited;
+export const leaved = (state: State) => state.leaved;
+export const kicked = (state: State) => state.kicked;
 export const getError = (state: State) => state.error;

@@ -64,14 +64,6 @@ export class UserEffects {
     })
   );
 
-  @Effect({dispatch: false})
-  joinGameSuccess$: Observable<Action> = this.actions$.pipe(
-    ofType(userActions.JOIN_GAME_SUCCESS),
-    tap(() => {
-      console.log('you joined the game successfully.')
-    })
-  );
-
   @Effect()
   getProfileInfo$: Observable<Action> = this.actions$.pipe(
     ofType(userActions.GET_PROFILE_INFO),
@@ -105,15 +97,6 @@ export class UserEffects {
           map((success) => new userActions.LeaveGameSuccessAction(success)),
           catchError((error) => of(new userActions.LeaveGameFailAction(error)))
         );
-    })
-  );
-
-  @Effect({dispatch: false})
-  leaveGameSuccess$: Observable<Action> = this.actions$.pipe(
-    ofType(userActions.LEAVE_GAME_SUCCESS),
-    tap(() => {
-      console.log('you leaved the game successfully.');
-      this.router.navigate(['./games']);
     })
   );
 

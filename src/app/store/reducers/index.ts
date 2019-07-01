@@ -28,6 +28,9 @@ export const isFetchingUser = createSelector(getUserState, fromUser.isFetching);
 export const isLoggedIn = createSelector(getUserState, fromUser.isLoggedIn);
 export const errorUser = createSelector(getUserState, fromUser.getError);
 export const joined = createSelector(getUserState, fromUser.joined);
+export const invited = createSelector(getUserState, fromUser.invited);
+export const leaved = createSelector(getUserState, fromUser.leaved);
+export const kicked = createSelector(getUserState, fromUser.kicked);
 
 /*  Guest state selectors  */
 export const getGuestState = (state: State) => state.guest;
