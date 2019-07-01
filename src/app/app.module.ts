@@ -25,6 +25,7 @@ import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {AllGamesComponent} from './components/all-games/all-games.component';
 import {GuestEffect} from './store/effects/guest.effect';
 import {CreateGameComponent} from './components/create-game/create-game.component';
+import {LoginGuard} from "./guard/login.guard";
 
 const DECLARATIONS = [
   AppComponent,
@@ -50,9 +51,13 @@ const DECLARATIONS = [
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     EffectsModule.forRoot([UserEffects, GuestEffect]),
   ],
-  providers: [GuestService, UserService, UtilityService,
+  providers: [
+    GuestService,
+    UserService,
+    UtilityService,
     {provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true},
-    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}],
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+    LoginGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule {
