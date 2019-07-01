@@ -58,6 +58,7 @@ export class GameComponent implements OnInit, OnDestroy {
       name: string;
       updated_at: Date;
     };
+    this.subscriptions = [];
     this.alreadyJoined = true;
     this.isUserLoggedIn = false;
     this.availableUsersToInvite = [];

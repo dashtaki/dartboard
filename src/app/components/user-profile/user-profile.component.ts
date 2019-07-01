@@ -50,7 +50,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
       email: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
-
+    this.subscriptions = [];
     this.fillFormControls();
   }
 
