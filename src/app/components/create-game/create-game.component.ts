@@ -4,6 +4,7 @@ import {Store} from '@ngrx/store';
 import * as fromRoot from '../../store/reducers/index';
 import * as userActions from '../../store/actions/user.action';
 import {CreateGame} from '../../services/models/create-game.model';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-create-game',
@@ -15,7 +16,8 @@ export class CreateGameComponent implements OnInit {
   public createGameForm: FormGroup;
 
   constructor(private formBuilder: FormBuilder,
-              private store: Store<fromRoot.State>) {
+              private store: Store<fromRoot.State>,
+              private router: Router) {
   }
 
   /**
@@ -43,5 +45,7 @@ export class CreateGameComponent implements OnInit {
       target_score: this.formControls.targetScore.value
     };
     this.store.dispatch(new userActions.CreateGameAction(targetScore));
+    this.formControls.targetScore.setValue(null);
+    this.router.navigate(['/games']);
   }
 }
