@@ -43,6 +43,8 @@ export const ADD_GAME_SCORE = '[User] Add Game Score';
 export const ADD_GAME_SCORE_SUCCESS = '[User] Add Game Score Success';
 export const ADD_GAME_SCORE_FAIL = '[User] Add Game Score Fail';
 
+export const UPDATE_USER_NAME = '[User] Update USer Name';
+
 export class LoginAction implements Action {
   readonly type = LOGIN;
 
@@ -257,6 +259,12 @@ export class AddGameScoreFailAction implements Action {
   }
 }
 
+export class UpdateUserNameAction implements Action {
+  readonly type = UPDATE_USER_NAME;
+
+  constructor(public payload: any) {
+  }
+}
 
 export type Actions =
   LoginAction
@@ -289,5 +297,6 @@ export type Actions =
   | AddGameScoreFailAction
   | UpdateGameAction
   | UpdateGameSuccessAction
-  | UpdateGameFailAction;
+  | UpdateGameFailAction
+  | UpdateUserNameAction;
 

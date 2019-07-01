@@ -31,10 +31,18 @@ export class AppComponent implements OnInit {
     });
 
     this.store.select(fromRoot.getUserName).subscribe(name => {
-      if (name) {
-        this.username = name;
+      let dartUsername = 'dart-username';
+      let uName = localStorage.getItem(dartUsername);
+      if (name || uName) {
+        localStorage.setItem(dartUsername, name || uName);
+        this.username = name || uName;
       }
-    })
+
+      if (!name && !localStorage.getItem('userInfo')) {
+        localStorage.removeItem(dartUsername);
+        this.username = null;
+      }
+    });
 
   }
 

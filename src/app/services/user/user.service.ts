@@ -32,6 +32,7 @@ export class UserService {
   public logout(): void {
     this.store.dispatch(new userActions.AuthenticateAction(false));
     localStorage.removeItem('userInfo');
+    this.store.dispatch(new userActions.UpdateUserNameAction(null))
   }
 
   public getUserProfile(): Observable<User> {

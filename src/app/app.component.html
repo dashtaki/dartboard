@@ -20,7 +20,7 @@
   <li class="nav-item">
     <a *ngIf="isUserLoggedIn" routerLink="login" (click)="logoutUser()" class="nav-link">Logout</a>
   </li>
-  <li class="nav-item">
+  <li class="nav-item username" *ngIf="username">
     <div class="user-img-wrapper d-flex justify-content-center align-items-center">
       <strong class="nav-link">{{username}}</strong>
       <img class="user-img" src="../assets/user.png"/>
