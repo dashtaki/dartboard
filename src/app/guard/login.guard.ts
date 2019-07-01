@@ -8,7 +8,7 @@ export class LoginGuard implements CanActivate {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    if (localStorage.getItem('currentUser')) {
+    if (localStorage.getItem('userInfo')) {
       return true;
     }
 
