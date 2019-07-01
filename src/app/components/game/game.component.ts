@@ -269,10 +269,15 @@ export class GameComponent implements OnInit, OnDestroy {
 
     const data = {targetScore: this.updateGameFormControls.targetScore.value, gameId: this.gameId};
     this.store.dispatch(new userActions.UpdateGameAction(data));
-    // TODO: make sure api returned 200
-    this.gameInfo.target_score = this.gameInfo.target_score + this.updateGameFormControls.targetScore.value;
-    this.updateGameFormControls.targetScore.setValue(null);
-    this.isUpdateGameFormSubmitted = false;
+    let updateSubscription = this.store.select(fromRoot.isGameUpdated).subscribe(updated => {
+      if (updated) {
+        this.gameInfo.target_score = this.gameInfo.target_score + this.updateGameFormControls.targetScore.value;
+        this.updateGameFormControls.targetScore.setValue(null);
+        this.isUpdateGameFormSubmitted = false;
+      }
+    });
+
+    this.subscriptions.push(updateSubscription);
   }
 
   /**

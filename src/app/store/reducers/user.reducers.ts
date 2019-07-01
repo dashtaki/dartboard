@@ -13,6 +13,7 @@ export interface State {
   kicked: boolean;
   leaved: boolean;
   isGameCreated: boolean;
+  isGameUpdated: boolean;
   isFetching: boolean;
 }
 
@@ -27,6 +28,7 @@ const initialState: State = {
   kicked: false,
   invited: false,
   isGameCreated: false,
+  isGameUpdated: false,
   leaved: false,
   isFetching: true
 };
@@ -117,6 +119,14 @@ export function reducer(state = initialState, action: userActions.Actions): Stat
       }
     }
 
+    case userActions.UPDATE_GAME_SUCCESS: {
+      return {
+        ...state,
+        isGameUpdated: true,
+        isFetching: false
+      }
+    }
+
     case userActions.AUTHENTICATE: {
       return {
         ...state,
@@ -166,4 +176,5 @@ export const invited = (state: State) => state.invited;
 export const leaved = (state: State) => state.leaved;
 export const kicked = (state: State) => state.kicked;
 export const isGameCreated = (state: State) => state.isGameCreated;
+export const isGameUpdated = (state: State) => state.isGameUpdated;
 export const getError = (state: State) => state.error;

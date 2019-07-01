@@ -32,6 +32,7 @@ export const invited = createSelector(getUserState, fromUser.invited);
 export const leaved = createSelector(getUserState, fromUser.leaved);
 export const kicked = createSelector(getUserState, fromUser.kicked);
 export const isGameCreated = createSelector(getUserState, fromUser.isGameCreated);
+export const isGameUpdated = createSelector(getUserState, fromUser.isGameUpdated);
 
 /*  Guest state selectors  */
 export const getGuestState = (state: State) => state.guest;
