@@ -10,8 +10,10 @@
           <div class="card-body">
             <div><h6 class="card-title d-inline-block mr-2">Name: </h6>{{user.name}}</div>
             <div><h6 class="card-title d-inline-block mr-2">Email: </h6>{{user.email}}</div>
-            <div><h6 class="card-title d-inline-block mr-2">Creation Date: </h6>{{user.created_at}}</div>
-            <div><h6 class="card-title d-inline-block mr-2">Last Update Date: </h6>{{user.updated_at}}</div>
+            <div><h6 class="card-title d-inline-block mr-2">Creation
+              Date: </h6>{{user.created_at | date: 'ddMMM yy h:mm'}}</div>
+            <div><h6 class="card-title d-inline-block mr-2">Last Update
+              Date: </h6>{{user.updated_at| date: 'ddMMM yy h:mm'}}</div>
           </div>
           <div class="card-footer">
             <h5 class="card-title d-inline-block mr-2">Score: </h5><span class="mr-1">{{user.score}}</span>

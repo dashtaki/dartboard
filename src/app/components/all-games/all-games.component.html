@@ -9,8 +9,10 @@
           <div class="card-header">Game #{{game.id}}</div>
           <div class="card-body">
             <div><h6 class="card-title d-inline-block mr-2">Target Score: </h6>{{game.target_score}}</div>
-            <div><h6 class="card-title d-inline-block mr-2">Creation Date: </h6>{{game.created_at}}</div>
-            <div><h6 class="card-title d-inline-block mr-2">Last Update Date: </h6>{{game.updated_at}}</div>
+            <div><h6 class="card-title d-inline-block mr-2">Creation
+              Date: </h6>{{game.created_at| date: 'ddMMM yy h:mm'}}</div>
+            <div><h6 class="card-title d-inline-block mr-2">Last Update
+              Date: </h6>{{game.updated_at| date: 'ddMMM yy h:mm'}}</div>
             <div *ngIf="game.winner"><h6 class="card-title d-inline-block mr-2">Winner Name: </h6>{{game.winner.name}}
             </div>
             <div *ngIf="game.winner"><h6 class="card-title d-inline-block mr-2">Winner Score: </h6>{{game.winner.score}}
