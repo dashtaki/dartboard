@@ -6,11 +6,12 @@
       <div *ngIf="!enableEdit" class="user-info-wrapper">
         <div class="mb-2"><strong>Name: </strong>{{userProfileData.name}}</div>
         <div class="mb-2"><strong>Email: </strong>{{userProfileData.email}}</div>
-        <div class="mb-2"><strong>Last update date: </strong>{{userProfileData.updated_at| date: 'ddMMM yy h:mm'}}</div>
-        <div class="mb-2"><strong>Profile creation date: </strong>{{userProfileData.created_at| date: 'ddMMM yy h:mm'}}
+        <div class="mb-2"><strong>Last update date: </strong>{{userProfileData.updated_at| date: 'dd MMM yy h:mm'}}
+        </div>
+        <div class="mb-2"><strong>Profile creation date: </strong>{{userProfileData.created_at| date: 'dd MMM yy h:mm'}}
         </div>
         <div class="mb-2"><strong>Email verification
-          date: </strong>{{userProfileData.email_verified_at| date: 'ddMMM yy h:mm'}}</div>
+          date: </strong>{{userProfileData.email_verified_at| date: 'dd MMM yy h:mm'}}</div>
       </div>
 
       <div *ngIf="enableEdit">
