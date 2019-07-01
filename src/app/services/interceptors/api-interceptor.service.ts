@@ -3,11 +3,12 @@ import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/com
 import {Observable, throwError} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 import {Router} from '@angular/router';
+import {UtilityService} from '../utility.service';
 
 @Injectable()
 export class ApiInterceptor implements HttpInterceptor {
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private utilityService: UtilityService) {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -18,8 +19,13 @@ export class ApiInterceptor implements HttpInterceptor {
 
 
     return next.handle(authReq).pipe(catchError(err => {
-      if (err.status === 401) {
+      if (err.status === 401 || err.status === 404) {
         this.router.navigate(['./login']);
+      }
+
+      if (err.status === 504) {
+        let msg = err.statusText === 'Gateway Timeout' ? 'Check your internet connection and try again' : err.statusText;
+        this.utilityService.showAlert(msg);
       }
 
       const error = err.error.message || err.statusText;
