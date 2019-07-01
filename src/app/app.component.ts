@@ -19,11 +19,6 @@ export class AppComponent implements OnInit {
               private userService: UserService) {
   }
 
-  @HostListener('window:unload', ['$event'])
-  handleUnload() {
-    this.userService.logout();
-  }
-
   /**
    * ngOnInit life cycle hook
    */
