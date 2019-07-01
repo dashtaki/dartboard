@@ -1,0 +1,17 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="card-deck custom-card-desk">
+      <div class="card" *ngFor="let user of users | paginate: { id: 'foo',
+                                                itemsPerPage: itemsPerPage,
+                                                   currentPage: currentPage,
+                                                      totalItems: total }">
+        <div class="card-header"><h4>Score: {{user.score}}</h4></div>
+        <div class="card-body d-flex justify-content-center align-items-center">
+          <div><h5 class="card-title mb-0">{{user.name}}</h5></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<pagination-controls (pageChange)="currentPage = $event"></pagination-controls>

@@ -25,7 +25,8 @@ import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {AllGamesComponent} from './components/all-games/all-games.component';
 import {GuestEffect} from './store/effects/guest.effect';
 import {CreateGameComponent} from './components/create-game/create-game.component';
-import {LoginGuard} from "./guard/login.guard";
+import {LoginGuard} from './guard/login.guard';
+import {PlayersScoreComponent} from './components/palyers-score/players-score.component';
 
 const DECLARATIONS = [
   AppComponent,
@@ -35,7 +36,8 @@ const DECLARATIONS = [
   RegisterComponent,
   UserProfileComponent,
   AllGamesComponent,
-  CreateGameComponent
+  CreateGameComponent,
+  PlayersScoreComponent
 ];
 
 @NgModule({

@@ -8,6 +8,7 @@ import {UserProfileComponent} from './components/user-profile/user-profile.compo
 import {AllGamesComponent} from './components/all-games/all-games.component';
 import {CreateGameComponent} from './components/create-game/create-game.component';
 import {LoginGuard} from './guard/login.guard';
+import {PlayersScoreComponent} from './components/palyers-score/players-score.component';
 
 
 const routes: Routes = [
@@ -17,6 +18,7 @@ const routes: Routes = [
   {path: 'game/:id', component: GameComponent},
   {path: 'games', component: AllGamesComponent},
   {path: 'users', component: AllUsersComponent},
+  {path: 'players-score', component: PlayersScoreComponent},
   {path: 'profile', component: UserProfileComponent, canActivate: [LoginGuard]},
   {path: 'create-game', component: CreateGameComponent, canActivate: [LoginGuard]}
 ];
