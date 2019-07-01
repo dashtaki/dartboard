@@ -8,6 +8,7 @@ export interface State {
   name: string;
   email: string;
   error: any;
+  joined: boolean;
   isFetching: boolean;
 }
 
@@ -18,6 +19,7 @@ const initialState: State = {
   name: '',
   email: '',
   error: '',
+  joined: false,
   isFetching: true
 };
 
@@ -32,7 +34,8 @@ export function reducer(state = initialState, action: userActions.Actions): Stat
     case userActions.INVITE_GAME:
     case userActions.KICK_GAME:
     case userActions.ADD_GAME_SCORE:
-    case userActions.UPDATE_GAME: {
+    case userActions.UPDATE_GAME:
+    case userActions.JOIN_GAME: {
       return {
         ...state
       };
@@ -65,6 +68,14 @@ export function reducer(state = initialState, action: userActions.Actions): Stat
       };
     }
 
+    case userActions.JOIN_GAME_SUCCESS: {
+      return {
+        ...state,
+        joined: true,
+        isFetching: false
+      }
+    }
+
     case userActions.AUTHENTICATE: {
       return {
         ...state,
@@ -79,7 +90,8 @@ export function reducer(state = initialState, action: userActions.Actions): Stat
     case userActions.INVITE_GAME_FAIL:
     case userActions.KICK_GAME_FAIL:
     case userActions.ADD_GAME_SCORE_FAIL:
-    case userActions.UPDATE_GAME_FAIL: {
+    case userActions.UPDATE_GAME_FAIL:
+    case userActions.JOIN_GAME_FAIL: {
       return {
         ...state,
         error: action.payload,
@@ -100,4 +112,5 @@ export const getUserProfileInfo = (state: State) => state.me;
 export const getUserEmail = (state: State) => state.email;
 export const getUserName = (state: State) => state.name;
 export const isFetching = (state: State) => state.isFetching;
+export const joined = (state: State) => state.joined;
 export const getError = (state: State) => state.error;

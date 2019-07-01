@@ -103,6 +103,11 @@ export class GameComponent implements OnInit, OnDestroy {
    */
   public joinGame() {
     this.store.dispatch(new userActions.JoinGameAction(this.gameId));
+    this.store.select(fromRoot.joined).subscribe(joined => {
+      if (joined) {
+        this.alreadyJoined = true;
+      }
+    });
   }
 
   /**

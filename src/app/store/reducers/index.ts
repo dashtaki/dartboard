@@ -27,6 +27,7 @@ export const getUserName = createSelector(getUserState, fromUser.getUserName);
 export const isFetchingUser = createSelector(getUserState, fromUser.isFetching);
 export const isLoggedIn = createSelector(getUserState, fromUser.isLoggedIn);
 export const errorUser = createSelector(getUserState, fromUser.getError);
+export const joined = createSelector(getUserState, fromUser.joined);
 
 /*  Guest state selectors  */
 export const getGuestState = (state: State) => state.guest;
