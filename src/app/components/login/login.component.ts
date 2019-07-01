@@ -6,7 +6,7 @@ import {Store} from '@ngrx/store';
 import * as fromRoot from '../../store/reducers/index';
 import * as userActions from '../../store/actions/user.action';
 import {Subscription} from 'rxjs';
-import {UtilityService} from "../../services/utility.service";
+import {UtilityService} from '../../services/utility.service';
 
 @Component({
   selector: 'app-login',
@@ -83,8 +83,8 @@ export class LoginComponent implements OnInit, OnDestroy {
    * ngOnDestroy life cycle hook
    */
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
-
-
 }
