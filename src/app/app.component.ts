@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {UtilityService} from './services/utility.service';
 import {Store} from '@ngrx/store';
 import * as fromRoot from '../app/store/reducers/index';
@@ -17,6 +17,11 @@ export class AppComponent implements OnInit {
   constructor(private utilityService: UtilityService,
               private store: Store<fromRoot.State>,
               private userService: UserService) {
+  }
+
+  @HostListener('window:unload', ['$event'])
+  handleUnload() {
+    this.userService.logout();
   }
 
   /**
