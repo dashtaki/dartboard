@@ -109,6 +109,10 @@ export class GameComponent implements OnInit, OnDestroy {
    * check user already joined to game or not
    */
   private checkAlreadyJoined() {
+    if (!localStorage.getItem('userInfo')) {
+      this.isUserLoggedIn = false;
+      return false;
+    }
     let userProfileSubscription = this.store.select(fromRoot.getUserProfileInfo).pipe(first()).subscribe(data => {
       if (!data) {
         this.store.dispatch(new userActions.GetProfileInfoAction());

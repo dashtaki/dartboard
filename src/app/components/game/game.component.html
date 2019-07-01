@@ -28,7 +28,7 @@
              </span>
           </li>
         </ul>
-        <div class="card-body">
+        <div class="card-body" *ngIf="isUserLoggedIn">
           <a href="#" *ngIf="isUserLoggedIn && !alreadyJoined && !gameInfo.winner_id" class="card-link"
              (click)="joinGame()">Join the Game</a>
           <a href="#" *ngIf="isUserLoggedIn && alreadyJoined && !gameInfo.winner_id" class="card-link"
@@ -45,7 +45,7 @@
           <li class="list-group-item d-flex align-items-center justify-content-between"
               *ngFor="let user of availableUsersToInvite">
             <label>{{user.name}}</label>
-            <button class="btn btn-success" (click)="inviteUser(user.id)">Invite</button>
+            <button class="btn btn-success" *ngIf="isUserLoggedIn" (click)="inviteUser(user.id)">Invite</button>
           </li>
         </ul>
         <ul class="list-group list-group-flush" *ngIf="!availableUsersToInvite.length">
