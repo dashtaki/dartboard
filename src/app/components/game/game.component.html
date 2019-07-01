@@ -4,6 +4,7 @@
       <div class="card custom-card">
         <div class="card-header">Game Info</div>
         <div class="card-body">
+          <div><h6 class="card-title d-inline-block mr-2">Game ID: </h6>{{gameInfo.id}}</div>
           <div><h6 class="card-title d-inline-block mr-2">Score: </h6>{{gameInfo.target_score}}</div>
           <div><h6 class="card-title d-inline-block mr-2`">Creation
             Date: </h6> {{gameInfo.created_at | date: 'dd MMM yy h:mm'}}</div>
@@ -37,7 +38,7 @@
       </div>
     </div>
     <div class="col-3">
-      <div class="card custom-card">
+      <div class="card custom-card" *ngIf="isUserLoggedIn">
         <div class="card-header custom-header">
           Users to invite
         </div>
@@ -45,7 +46,7 @@
           <li class="list-group-item d-flex align-items-center justify-content-between"
               *ngFor="let user of availableUsersToInvite">
             <label>{{user.name}}</label>
-            <button class="btn btn-success" *ngIf="isUserLoggedIn" (click)="inviteUser(user.id)">Invite</button>
+            <button class="btn btn-success" (click)="inviteUser(user.id)">Invite</button>
           </li>
         </ul>
         <ul class="list-group list-group-flush" *ngIf="!availableUsersToInvite.length">
@@ -56,15 +57,15 @@
       </div>
     </div>
     <div class="col-3">
-      <div class="custom-form-wrapper">
+      <div class="custom-form-wrapper" *ngIf="isUserLoggedIn">
         <h2 class="custom-form-header">Update Game</h2>
         <form [formGroup]="updateGameForm" class="custom-form-container" (ngSubmit)="updateGame()">
 
-          <p [ngClass]="{ 'has-error': isAddGameScoreFormSubmitted && addGameScoreFormControls.targetScore.errors }">
+          <p [ngClass]="{ 'has-error': isUpdateGameFormSubmitted && updateGameFormControls.targetScore.errors }">
             <input type="number" placeholder="Target Score" formControlName="targetScore">
           </p>
-          <div *ngIf="isAddGameScoreFormSubmitted && addGameScoreFormControls.targetScore.errors" class="help-block">
-            <div *ngIf="addGameScoreFormControls.targetScore.errors.required">Target Score is required</div>
+          <div *ngIf="isUpdateGameFormSubmitted && updateGameFormControls.targetScore.errors" class="help-block">
+            <div *ngIf="updateGameFormControls.targetScore.errors.required">Target Score is required</div>
           </div>
 
           <p>
@@ -75,7 +76,7 @@
       </div>
     </div>
     <div class="col-3">
-      <div class="custom-form-wrapper">
+      <div class="custom-form-wrapper" *ngIf="isUserLoggedIn">
         <h2 class="custom-form-header">Add Game Score</h2>
         <form [formGroup]="addGameScoreForm" class="custom-form-container" (ngSubmit)="addGameScore()">
 

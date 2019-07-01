@@ -221,7 +221,8 @@ export class GameComponent implements OnInit, OnDestroy {
     this.store.dispatch(new userActions.AddGameScoreAction(data));
     // TODO: make sure api returned 200
     this.gameInfo.target_score = this.gameInfo.target_score + this.addGameScoreFormControls.score.value;
-    this.addGameScoreFormControls.score.setValue(0);
+    this.addGameScoreFormControls.score.setValue(null);
+    this.isAddGameScoreFormSubmitted = false;
   }
 
   /**
@@ -237,7 +238,8 @@ export class GameComponent implements OnInit, OnDestroy {
     this.store.dispatch(new userActions.UpdateGameAction(data));
     // TODO: make sure api returned 200
     this.gameInfo.target_score = this.gameInfo.target_score + this.updateGameFormControls.targetScore.value;
-    this.updateGameFormControls.targetScore.setValue(0);
+    this.updateGameFormControls.targetScore.setValue(null);
+    this.isUpdateGameFormSubmitted = false;
   }
 
   /**
