@@ -12,6 +12,7 @@ export interface State {
   invited: boolean;
   kicked: boolean;
   leaved: boolean;
+  isGameCreated: boolean;
   isFetching: boolean;
 }
 
@@ -25,6 +26,7 @@ const initialState: State = {
   joined: false,
   kicked: false,
   invited: false,
+  isGameCreated: false,
   leaved: false,
   isFetching: true
 };
@@ -41,7 +43,8 @@ export function reducer(state = initialState, action: userActions.Actions): Stat
     case userActions.KICK_GAME:
     case userActions.ADD_GAME_SCORE:
     case userActions.UPDATE_GAME:
-    case userActions.JOIN_GAME: {
+    case userActions.JOIN_GAME:
+    case userActions.CREATE_GAME: {
       return {
         ...state
       };
@@ -106,6 +109,14 @@ export function reducer(state = initialState, action: userActions.Actions): Stat
       }
     }
 
+    case userActions.CREATE_GAME_SUCCESS: {
+      return {
+        ...state,
+        isGameCreated: true,
+        isFetching: false
+      }
+    }
+
     case userActions.AUTHENTICATE: {
       return {
         ...state,
@@ -128,7 +139,8 @@ export function reducer(state = initialState, action: userActions.Actions): Stat
     case userActions.KICK_GAME_FAIL:
     case userActions.ADD_GAME_SCORE_FAIL:
     case userActions.UPDATE_GAME_FAIL:
-    case userActions.JOIN_GAME_FAIL: {
+    case userActions.JOIN_GAME_FAIL:
+    case userActions.CREATE_GAME_FAIL: {
       return {
         ...state,
         error: action.payload,
@@ -153,4 +165,5 @@ export const joined = (state: State) => state.joined;
 export const invited = (state: State) => state.invited;
 export const leaved = (state: State) => state.leaved;
 export const kicked = (state: State) => state.kicked;
+export const isGameCreated = (state: State) => state.isGameCreated;
 export const getError = (state: State) => state.error;
