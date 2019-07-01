@@ -12,7 +12,7 @@ import {PlayersScoreComponent} from './components/palyers-score/players-score.co
 
 
 const routes: Routes = [
-  {path: '', redirectTo: 'games', pathMatch: 'full'},
+  {path: '', redirectTo: 'players-score', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'game/:id', component: GameComponent},
