@@ -12,6 +12,7 @@ import * as userActions from '../app/store/actions/user.action';
 })
 export class AppComponent implements OnInit {
   public isUserLoggedIn: boolean;
+  public username: string;
 
   constructor(private utilityService: UtilityService,
               private store: Store<fromRoot.State>,
@@ -23,10 +24,17 @@ export class AppComponent implements OnInit {
    */
   ngOnInit(): void {
     const isLoggedIn = this.utilityService.isUserLoggedIn();
+    this.username = '';
     this.store.dispatch(new userActions.AuthenticateAction(isLoggedIn));
     this.store.select(fromRoot.isLoggedIn).subscribe(data => {
       this.isUserLoggedIn = data;
     });
+
+    this.store.select(fromRoot.getUserName).subscribe(name => {
+      if (name) {
+        this.username = name;
+      }
+    })
 
   }
 
