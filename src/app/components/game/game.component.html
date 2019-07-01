@@ -29,7 +29,7 @@
              </span>
           </li>
         </ul>
-        <div class="card-body" *ngIf="isUserLoggedIn">
+        <div class="card-body" *ngIf="isUserLoggedIn && !gameInfo.winner_id">
           <a href="#" *ngIf="isUserLoggedIn && !alreadyJoined && !gameInfo.winner_id" class="card-link"
              (click)="joinGame()">Join the Game</a>
           <a href="#" *ngIf="isUserLoggedIn && alreadyJoined && !gameInfo.winner_id" class="card-link"
@@ -46,7 +46,7 @@
           <li class="list-group-item d-flex align-items-center justify-content-between"
               *ngFor="let user of availableUsersToInvite">
             <label>{{user.name}}</label>
-            <button class="btn btn-success" (click)="inviteUser(user.id)">Invite</button>
+            <button class="btn btn-success" *ngIf="!gameInfo.winner_id" (click)="inviteUser(user.id)">Invite</button>
           </li>
         </ul>
         <ul class="list-group list-group-flush" *ngIf="!availableUsersToInvite.length">
@@ -57,7 +57,7 @@
       </div>
     </div>
     <div class="col-3">
-      <div class="custom-form-wrapper" *ngIf="isUserLoggedIn">
+      <div class="custom-form-wrapper" *ngIf="isUserLoggedIn && !gameInfo.winner_id">
         <h2 class="custom-form-header">Update Game</h2>
         <form [formGroup]="updateGameForm" class="custom-form-container" (ngSubmit)="updateGame()">
 
@@ -76,7 +76,7 @@
       </div>
     </div>
     <div class="col-3">
-      <div class="custom-form-wrapper" *ngIf="isUserLoggedIn">
+      <div class="custom-form-wrapper" *ngIf="isUserLoggedIn && !gameInfo.winner_id">
         <h2 class="custom-form-header">Add Game Score</h2>
         <form [formGroup]="addGameScoreForm" class="custom-form-container" (ngSubmit)="addGameScore()">
 
