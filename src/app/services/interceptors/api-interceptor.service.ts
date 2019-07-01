@@ -19,14 +19,17 @@ export class ApiInterceptor implements HttpInterceptor {
 
 
     return next.handle(authReq).pipe(catchError(err => {
-      if (err.status === 401 || err.status === 404) {
-        this.router.navigate(['./login']);
+      if (err) {
+        if (err.status === 401 || err.status === 404) {
+          this.router.navigate(['./login']);
+        } else if (err.status === 504) {
+          let msg = err.statusText === 'Gateway Timeout' ? 'Check your internet connection and try again' : err.statusText;
+          this.utilityService.showAlert(msg);
+        } else {
+          this.utilityService.showAlert(err.statusText);
+        }
       }
 
-      if (err.status === 504) {
-        let msg = err.statusText === 'Gateway Timeout' ? 'Check your internet connection and try again' : err.statusText;
-        this.utilityService.showAlert(msg);
-      }
 
       const error = err.error.message || err.statusText;
       return throwError(error);
