@@ -38,8 +38,6 @@ export class LoginComponent implements OnInit, OnDestroy {
       username: ['', Validators.required],
       password: ['', Validators.required]
     });
-
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
   /**
@@ -67,7 +65,8 @@ export class LoginComponent implements OnInit, OnDestroy {
       if (userData) {
         if (userData.access_token) {
           localStorage.setItem('userInfo', JSON.stringify(userData));
-          this.router.navigate([this.returnUrl]);
+          this.store.dispatch(new userActions.GetProfileInfoAction());
+          this.router.navigate(['./users']);
         }
       }
     });
